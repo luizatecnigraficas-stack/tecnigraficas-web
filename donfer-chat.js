@@ -34,7 +34,7 @@
     + ".dfw-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e7ee;background:#fff}.dfw-form textarea{flex:1;resize:none;border:1px solid #d9dde6;border-radius:12px;padding:10px;font:inherit;max-height:100px}"
     + ".dfw-form button{border:0;border-radius:12px;padding:0 16px;background:linear-gradient(110deg,#00a6d6,#e6007e);color:#fff;font-weight:800;cursor:pointer}.dfw-form button:disabled{opacity:.5}"
     + ".dfw-foot{font-size:11px;color:#8a909c;text-align:center;padding:0 10px 8px;background:#fff}.dfw-foot a{color:#8a909c}"
-    + "@media(max-width:600px){.dfw-bub{left:10px;bottom:72px;max-width:200px;font-size:13px}.dfw-fab span{display:none}.dfw-fab{padding:6px}.dfw-panel{left:6px;bottom:6px;width:calc(100vw - 12px);height:calc(100vh - 12px)}}";
+    + "@media(max-width:600px){.dfw-bub{left:10px;bottom:72px;max-width:calc(100vw - 20px);font-size:13px}.dfw-fab span{display:none}.dfw-fab{padding:6px}.dfw-panel{left:6px;bottom:6px;width:calc(100vw - 12px);height:calc(100vh - 12px)}}";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
   var fab = document.createElement("button");
