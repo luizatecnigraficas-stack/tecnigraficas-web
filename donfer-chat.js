@@ -24,12 +24,17 @@
     + ".dfw-m{max-width:88%;padding:10px 13px;border-radius:16px;white-space:pre-wrap;word-wrap:break-word}.dfw-m a{color:#e6007e;font-weight:700;word-break:break-all}"
     + ".dfw-me{align-self:flex-end;background:#0b6f93;color:#fff;border-bottom-right-radius:4px}.dfw-bot{align-self:flex-start;background:#fff;border:1px solid #e3e7ee;border-bottom-left-radius:4px}"
     + ".dfw-wa{display:inline-block;margin-top:6px;background:#25d366;color:#fff!important;text-decoration:none;border-radius:999px;padding:7px 12px;font-weight:800}"
+    + ".dfw-bub{position:fixed;left:18px;bottom:84px;z-index:9998;max-width:260px;white-space:nowrap;background:#fff;color:#191b22;border:2px solid #191b22;border-radius:18px;padding:10px 30px 10px 14px;font:700 14px/1.3 system-ui,-apple-system,Segoe UI,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;opacity:0;transform:translateY(8px) scale(.96);transform-origin:bottom left;transition:opacity .3s,transform .3s;pointer-events:none}"
+    + ".dfw-bub.on{opacity:1;transform:none;pointer-events:auto;animation:dfwBob 2.4s ease-in-out 1s infinite}"
+    + ".dfw-bub:after{content:'';position:absolute;left:22px;bottom:-11px;width:16px;height:16px;background:#fff;border-right:2px solid #191b22;border-bottom:2px solid #191b22;transform:rotate(45deg)}"
+    + ".dfw-bub b{color:#e6007e}.dfw-bub button{position:absolute;top:4px;right:6px;border:0;background:none;font-size:16px;line-height:1;color:#8a909c;cursor:pointer;padding:2px}"
+    + "@keyframes dfwBob{0%,100%{transform:none}50%{transform:translateY(-4px)}}"
     + ".dfw-was{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}.dfw-was small{width:100%;color:#6b7280}"
     + ".dfw-typing{align-self:flex-start;color:#6b7280;font-size:13px}.dfw-sugs{display:flex;flex-wrap:wrap;gap:6px}.dfw-sugs button{border:1px solid #e3e7ee;background:#fff;border-radius:999px;padding:7px 11px;font-size:13px;cursor:pointer}"
     + ".dfw-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e7ee;background:#fff}.dfw-form textarea{flex:1;resize:none;border:1px solid #d9dde6;border-radius:12px;padding:10px;font:inherit;max-height:100px}"
     + ".dfw-form button{border:0;border-radius:12px;padding:0 16px;background:linear-gradient(110deg,#00a6d6,#e6007e);color:#fff;font-weight:800;cursor:pointer}.dfw-form button:disabled{opacity:.5}"
     + ".dfw-foot{font-size:11px;color:#8a909c;text-align:center;padding:0 10px 8px;background:#fff}.dfw-foot a{color:#8a909c}"
-    + "@media(max-width:600px){.dfw-fab span{display:none}.dfw-fab{padding:6px}.dfw-panel{left:6px;bottom:6px;width:calc(100vw - 12px);height:calc(100vh - 12px)}}";
+    + "@media(max-width:600px){.dfw-bub{left:10px;bottom:72px;max-width:200px;font-size:13px}.dfw-fab span{display:none}.dfw-fab{padding:6px}.dfw-panel{left:6px;bottom:6px;width:calc(100vw - 12px);height:calc(100vh - 12px)}}";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
   var fab = document.createElement("button");
@@ -41,7 +46,14 @@
     + '<div class="dfw-msgs"></div>'
     + '<form class="dfw-form"><textarea rows="1" placeholder="Escribe tu pregunta…" aria-label="Tu mensaje"></textarea><button type="submit">Enviar</button></form>'
     + '<div class="dfw-foot">Respuestas con IA · WhatsApp: ' + ASESORAS.map(function (a) { return '<a href="https://wa.me/' + a.num + '" target="_blank" rel="noopener">' + a.nombre + "</a>"; }).join(" · ") + "</div>";
-  document.body.appendChild(fab); document.body.appendChild(panel);
+  var bub = document.createElement("div");
+  bub.className = "dfw-bub"; bub.setAttribute("role", "button"); bub.setAttribute("aria-label", "Chatea con Don Fer");
+  bub.innerHTML = '¡Hola! 👋 <b>Chatea con Don Fer</b><button type="button" aria-label="Cerrar">×</button>';
+  document.body.appendChild(fab); document.body.appendChild(panel); document.body.appendChild(bub);
+  var bubOff = false; try { bubOff = !!(store && store.getItem("donfer-bub-off")); } catch (e) {}
+  function hideBub(forever) { bub.classList.remove("on"); if (forever) { bubOff = true; try { store && store.setItem("donfer-bub-off", "1"); } catch (e) {} } }
+  if (!bubOff && !msgs.length) setTimeout(function () { if (!panel.classList.contains("on") && !bubOff) bub.classList.add("on"); }, 2000);
+  bub.addEventListener("click", function (e) { if (e.target.tagName === "BUTTON") { e.stopPropagation(); hideBub(true); return; } hideBub(true); fab.click(); });
   var box = panel.querySelector(".dfw-msgs"), input = panel.querySelector("textarea"), send = panel.querySelector(".dfw-form button");
   var sugs = ["¿Qué productos hacen?", "Quiero cotizar stickers", "¿Hacen avisos para local?", "¿Dónde quedan y en qué horario?"];
 
@@ -71,7 +83,7 @@
       .catch(function () { msgs.push({ role: "assistant", content: "No me pude conectar 😕. Escríbenos por WhatsApp: " + WA }); })
       .then(function () { busy = false; save(); render(); input.focus(); });
   }
-  fab.addEventListener("click", function () { panel.classList.add("on"); fab.style.display = "none"; render(); setTimeout(function () { input.focus(); }, 50); });
+  fab.addEventListener("click", function () { hideBub(true); panel.classList.add("on"); fab.style.display = "none"; render(); setTimeout(function () { input.focus(); }, 50); });
   panel.querySelector(".dfw-head button").addEventListener("click", function () { panel.classList.remove("on"); fab.style.display = ""; });
   panel.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
   input.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(input.value); } });
