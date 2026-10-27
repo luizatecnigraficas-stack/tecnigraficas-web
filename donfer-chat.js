@@ -5,7 +5,7 @@
   if (window.__donferChat) return; window.__donferChat = true;
   var URL_FN = "https://kqrfcdfygskzhsdzzcze.supabase.co/functions/v1/donfer-web";
   var KEY = "sb_publishable_KfkIr6TlW6ivuT5cD0g9Kg_EuZwDKJ9";
-  var AVATAR = "donfer-asoma.webp";
+  var AVATAR = "donfer-chat.webp";
   var WA = "https://wa.me/573122526244";
   // Asesoras: el orden se baraja en cada visita para repartir los mensajes
   var ASESORAS = [{ nombre: "Mara", num: "573122526244" }, { nombre: "Luiza", num: "573193451013" }];
