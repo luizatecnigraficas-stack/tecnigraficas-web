@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tecnigráficas · Imprimimos lo que te imaginas</title>
-<meta name="description" content="Empresa familiar de publicidad e impresión en Popayán con 26 años de historia. Tarjetas, volantes, pendones, logos, diplomas y cajas personalizadas.">
+<meta name="description" content="Empresa familiar de publicidad e impresión en Popayán con 26 años de historia. Tarjetas, volantes, pendones, logos, diplomas, cajas, bolsas de papel y de cambrel, retablos y cuadros.">
 <meta name="theme-color" content="#1A1A1A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,6 +124,28 @@ section{scroll-margin-top:80px}
 .caja.c{left:32%;top:0;width:34%;height:34%;background:var(--cian);transform:rotate(-2deg)}
 .caja.b::after,.caja.a::after{content:"";position:absolute;left:0;right:0;top:22%;border-top:var(--borde)}
 
+/* líneas de empaques */
+.bloque h2,.bloque p{color:#fff}
+.lineas{display:flex;flex-direction:column;gap:28px;margin-top:32px;padding:0 8px 8px 0}
+.linea{--c:#00AEEF;--t:#DDF4FD;border:var(--borde);border-radius:32px;background:var(--t);box-shadow:8px 8px 0 var(--c);padding:36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:36px;align-items:start}
+.lcopy{display:flex;flex-direction:column;gap:14px}
+.lcopy .card-cat{font-size:12px}
+.linea h3{font-weight:900;font-size:clamp(26px,3vw,36px);line-height:1.02;text-transform:uppercase;letter-spacing:-.02em}
+.linea p{margin:0;font-size:17px;line-height:1.55;color:var(--suave)}
+.specs{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.specs li{display:flex;gap:10px;font-size:15.5px;line-height:1.45;font-weight:500}
+.specs li::before{content:"";flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--negro)}
+.refs{display:flex;flex-direction:column;gap:20px;min-width:0}
+.refs h4{margin:0 0 10px;font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.refs h4 small{font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:0;text-transform:none;color:var(--suave)}
+.refgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+.ref{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;text-align:left;min-height:58px;padding:9px 14px;border:2px solid var(--negro);border-radius:16px;background:#fff;cursor:pointer;color:var(--texto);transition:transform .12s ease,box-shadow .12s ease}
+.ref b{font-family:var(--display);font-weight:800;font-size:14px;line-height:1.2}
+.ref span{font-size:13px;color:var(--suave);font-variant-numeric:tabular-nums}
+.ref:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--negro)}
+.ref:focus-visible{outline:3px solid var(--cian);outline-offset:2px}
+.refnote{margin:0!important;font-size:14px!important;font-weight:700;color:var(--texto)!important}
+
 /* historia */
 .historia{background:var(--amarillo);border-top:var(--borde);border-bottom:var(--borde)}
 .historia .wrap{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:96px;padding-bottom:96px}
@@ -216,7 +238,7 @@ textarea{resize:vertical}
 .float-cart{position:fixed;right:18px;bottom:18px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 
 @media (prefers-reduced-motion:reduce){.cinta-track,.bob,.skel{animation:none}.card{transition:none}html{scroll-behavior:auto}}
-@media (max-width:900px){.nav-links{display:none}.modal{grid-template-columns:1fr}.modal .gal{border-right:0;border-bottom:var(--borde)}}
+@media (max-width:900px){.linea{grid-template-columns:1fr;gap:24px}.nav-links{display:none}.modal{grid-template-columns:1fr}.modal .gal{border-right:0;border-bottom:var(--borde)}}
 @media (max-width:640px){
   .wrap{padding:0 16px}.nav-in{padding:12px 16px}.logo img{height:36px!important}.nav-actions .btn.line{display:none}
   .hero{padding-top:24px;gap:24px}.hero-art{height:380px}.donfer-hero{height:230px;right:-6%;top:-30px}
@@ -227,6 +249,7 @@ textarea{resize:vertical}
   .cta-asoma{padding:32px 22px 170px;border-radius:30px}.cta-asoma img{height:190px;bottom:-34px}
   .form2{grid-template-columns:1fr}.count{margin-left:0;width:100%}
   .parati{grid-template-columns:1fr}
+  .linea{padding:24px 18px;border-radius:24px;box-shadow:5px 5px 0 var(--c)}.refgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.ref{padding:8px 10px}.ref b{font-size:13px}.ref span{font-size:12px}
 }
 /* grilla de productos: 5 en computador, 2 en celular */
 @media (max-width:1180px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -257,7 +280,7 @@ textarea{resize:vertical}
 
 <header class="nav"><div class="nav-in">
   <a class="logo" href="#inicio"><img src="logo-web.webp" alt="Tecnigráficas · Imprimimos la diferencia" width="640" height="155" style="height:44px;width:auto"></a>
-  <nav class="nav-links" aria-label="Principal"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
+  <nav class="nav-links" aria-label="Principal"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#cuadros">Cuadros</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
   <div class="nav-actions">
     <a class="btn line small" href="#" data-wa>WhatsApp</a>
     <button class="btn small cart-btn" type="button" data-open-cart aria-label="Ver mi solicitud de cotización">Mi solicitud <span class="cart-count" data-cart-count>0</span></button>
@@ -307,12 +330,77 @@ textarea{resize:vertical}
 <section id="empaques" style="padding:0 0 96px"><div class="wrap"><div class="bloque">
   <div class="copy">
     <span class="chip-dark">LÍNEA DE EMPAQUES</span>
-    <h2 class="h-l">Tu producto merece una caja que hable por él.</h2>
-    <p>Cajas personalizadas para emprendimientos, regalos y eventos. Tú pones el producto, nosotros el empaque que hace que lo destapen con ganas.</p>
-    <div class="row"><a class="btn big" href="#" data-wa="Hola, Tecnigráficas. Quisiera cotizar cajas personalizadas para mi producto.">Diseñar mi caja</a></div>
+    <h2 class="h-l">Tu producto merece un empaque que hable por él.</h2>
+    <p>Cajas, bolsas de papel y bolsas de cambrel con tu marca. Tú pones el producto, nosotros el empaque que hace que lo destapen con ganas.</p>
+    <div class="row"><a class="btn big" href="#" data-wa="Hola, Tecnigráficas. Quisiera cotizar empaques personalizados para mi producto.">Cotizar mi empaque</a></div>
   </div>
   <div class="cajas" aria-hidden="true"><div class="caja c"></div><div class="caja a"></div><div class="caja b"></div></div>
-</div></div></section>
+</div>
+<div class="lineas">
+  <article class="linea" style="--c:#FFF200;--t:#FFFBC4">
+    <div class="lcopy">
+      <span class="card-cat">Cajas</span>
+      <h3>Cajas personalizadas</h3>
+      <p>Troqueladas e impresas con tu marca, a una tinta o a full color. Ya tenemos troqueles de muchas medidas, y si tu producto necesita otra, la desarrollamos contigo.</p>
+      <ul class="specs"><li>Para comida usamos papel de alto gramaje apto para alimentos.</li><li>Impresión a una tinta, dos tintas o full color.</li><li>Plastificado y otros acabados hechos en casa.</li></ul>
+    </div>
+    <div class="refs">
+      <div><h4>Para comida y repostería</h4><div class="refgrid"><button class="ref" type="button" data-addx="Caja Burger (11 × 11 × 4 cm)" aria-label="Agregar Caja Burger (11 × 11 × 4 cm) a mi solicitud"><b>Burger</b><span>11 × 11 × 4 cm</span></button><button class="ref" type="button" data-addx="Caja Hotdog (21 × 8 × 6,5 cm)" aria-label="Agregar Caja Hotdog (21 × 8 × 6,5 cm) a mi solicitud"><b>Hotdog</b><span>21 × 8 × 6,5 cm</span></button><button class="ref" type="button" data-addx="Caja Porción o postre (10 × 10 × 10 cm)" aria-label="Agregar Caja Porción o postre (10 × 10 × 10 cm) a mi solicitud"><b>Porción o postre</b><span>10 × 10 × 10 cm</span></button><button class="ref" type="button" data-addx="Caja Torta pequeña (13 × 15 × 15 cm)" aria-label="Agregar Caja Torta pequeña (13 × 15 × 15 cm) a mi solicitud"><b>Torta pequeña</b><span>13 × 15 × 15 cm</span></button><button class="ref" type="button" data-addx="Caja Torta (12 × 22 × 21 cm)" aria-label="Agregar Caja Torta (12 × 22 × 21 cm) a mi solicitud"><b>Torta</b><span>12 × 22 × 21 cm</span></button><button class="ref" type="button" data-addx="Caja Torta (22 × 22 × 20 cm)" aria-label="Agregar Caja Torta (22 × 22 × 20 cm) a mi solicitud"><b>Torta</b><span>22 × 22 × 20 cm</span></button><button class="ref" type="button" data-addx="Caja Torta en barra (11 × 25 × 11 cm)" aria-label="Agregar Caja Torta en barra (11 × 25 × 11 cm) a mi solicitud"><b>Torta en barra</b><span>11 × 25 × 11 cm</span></button><button class="ref" type="button" data-addx="Caja Torta en barra grande (11 × 32 × 11 cm)" aria-label="Agregar Caja Torta en barra grande (11 × 32 × 11 cm) a mi solicitud"><b>Torta en barra grande</b><span>11 × 32 × 11 cm</span></button><button class="ref" type="button" data-addx="Caja Panetón (24 × 24 × 20 cm)" aria-label="Agregar Caja Panetón (24 × 24 × 20 cm) a mi solicitud"><b>Panetón</b><span>24 × 24 × 20 cm</span></button></div></div>
+      <div><h4>También hacemos</h4><div class="refgrid"><button class="ref" type="button" data-addx="Caja tipo correo a la medida" aria-label="Agregar Caja tipo correo a la medida a mi solicitud"><b>Tipo correo</b><span>A tu medida</span></button><button class="ref" type="button" data-addx="Caja para regalos o productos a la medida" aria-label="Agregar Caja para regalos o productos a la medida a mi solicitud"><b>Para regalos y productos</b><span>A tu medida</span></button><button class="ref" type="button" data-addx="Tarjetas troqueladas para accesorios" aria-label="Agregar Tarjetas troqueladas para accesorios a mi solicitud"><b>Tarjetas para accesorios</b><span>Aretes, collares…</span></button><button class="ref" type="button" data-addx="Bolsa de papel para cubiertos" aria-label="Agregar Bolsa de papel para cubiertos a mi solicitud"><b>Bolsa para cubiertos</b><span>Papel para alimentos</span></button></div></div>
+      <p class="refnote">Toca una referencia y la agregamos a tu solicitud.</p>
+    </div>
+  </article>
+  <article class="linea" style="--c:#00AEEF;--t:#DDF4FD">
+    <div class="lcopy">
+      <span class="card-cat">Bolsas de papel</span>
+      <h3>Bolsas de papel con tu logo</h3>
+      <p>Bolsas con fuelle para que tu producto salga del local bien presentado. Tenemos 15 referencias, de la más pequeña a la más grande.</p>
+      <ul class="specs"><li>En papel grueso o extra grueso.</li><li>Sin manija o con manija de cordón. La Práctica trae manija troquelada.</li><li>Pedidos desde 500 unidades.</li><li>¿Necesitas otra medida? También la hacemos.</li></ul>
+    </div>
+    <div class="refs">
+      <div><h4>15 referencias <small>· alto × ancho × fuelle</small></h4><div class="refgrid"><button class="ref" type="button" data-addx="Bolsa de papel 01 Dulce (26,5 × 12 × 10 cm)" aria-label="Agregar Bolsa de papel 01 Dulce (26,5 × 12 × 10 cm) a mi solicitud"><b>01 Dulce</b><span>26,5 × 12 × 10 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 02 Antojo (27,2 × 12 × 10 cm)" aria-label="Agregar Bolsa de papel 02 Antojo (27,2 × 12 × 10 cm) a mi solicitud"><b>02 Antojo</b><span>27,2 × 12 × 10 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 03 Esencia (26,6 × 13 × 8 cm)" aria-label="Agregar Bolsa de papel 03 Esencia (26,6 × 13 × 8 cm) a mi solicitud"><b>03 Esencia</b><span>26,6 × 13 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 04 Detalle (26 × 16 × 6,2 cm)" aria-label="Agregar Bolsa de papel 04 Detalle (26 × 16 × 6,2 cm) a mi solicitud"><b>04 Detalle</b><span>26 × 16 × 6,2 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 05 Festiva (26 × 16 × 6,3 cm)" aria-label="Agregar Bolsa de papel 05 Festiva (26 × 16 × 6,3 cm) a mi solicitud"><b>05 Festiva</b><span>26 × 16 × 6,3 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 06 Eco (26 × 16 × 6,5 cm)" aria-label="Agregar Bolsa de papel 06 Eco (26 × 16 × 6,5 cm) a mi solicitud"><b>06 Eco</b><span>26 × 16 × 6,5 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 07 Boutique (27 × 16,4 × 6,5 cm)" aria-label="Agregar Bolsa de papel 07 Boutique (27 × 16,4 × 6,5 cm) a mi solicitud"><b>07 Boutique</b><span>27 × 16,4 × 6,5 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 08 Práctica (24,5 × 19 × 8 cm)" aria-label="Agregar Bolsa de papel 08 Práctica (24,5 × 19 × 8 cm) a mi solicitud"><b>08 Práctica</b><span>24,5 × 19 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 09 Viajera (32,3 × 21 × 11 cm)" aria-label="Agregar Bolsa de papel 09 Viajera (32,3 × 21 × 11 cm) a mi solicitud"><b>09 Viajera</b><span>32,3 × 21 × 11 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 10 Moda (32 × 26 × 8 cm)" aria-label="Agregar Bolsa de papel 10 Moda (32 × 26 × 8 cm) a mi solicitud"><b>10 Moda</b><span>32 × 26 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 11 Ejecutiva (35,2 × 25,5 × 8 cm)" aria-label="Agregar Bolsa de papel 11 Ejecutiva (35,2 × 25,5 × 8 cm) a mi solicitud"><b>11 Ejecutiva</b><span>35,2 × 25,5 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 12 Glamour (35,3 × 26 × 8 cm)" aria-label="Agregar Bolsa de papel 12 Glamour (35,3 × 26 × 8 cm) a mi solicitud"><b>12 Glamour</b><span>35,3 × 26 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 13 Panorámica (25,5 × 32,7 × 11 cm)" aria-label="Agregar Bolsa de papel 13 Panorámica (25,5 × 32,7 × 11 cm) a mi solicitud"><b>13 Panorámica</b><span>25,5 × 32,7 × 11 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 14 Torre (42 × 26 × 8 cm)" aria-label="Agregar Bolsa de papel 14 Torre (42 × 26 × 8 cm) a mi solicitud"><b>14 Torre</b><span>42 × 26 × 8 cm</span></button><button class="ref" type="button" data-addx="Bolsa de papel 15 Familiar (31,2 × 28,5 × 19,8 cm)" aria-label="Agregar Bolsa de papel 15 Familiar (31,2 × 28,5 × 19,8 cm) a mi solicitud"><b>15 Familiar</b><span>31,2 × 28,5 × 19,8 cm</span></button></div></div>
+      <p class="refnote">Toca una referencia y la agregamos a tu solicitud.</p>
+    </div>
+  </article>
+  <article class="linea" style="--c:#EC008C;--t:#FDE1F0">
+    <div class="lcopy">
+      <span class="card-cat">Bolsas de cambrel</span>
+      <h3>Bolsas de cambrel marcadas</h3>
+      <p>Livianas, resistentes y reutilizables, con tu logo estampado. Ideales para tiendas, eventos, obsequios y kits.</p>
+      <ul class="specs"><li>Marcadas a una tinta o a full color.</li><li>Desde 20 unidades.</li><li>Colores según disponibilidad.</li></ul>
+    </div>
+    <div class="refs">
+      <div><h4>Planas con manija troquelada</h4><div class="refgrid"><button class="ref" type="button" data-addx="Bolsa de cambrel plana 14 × 20 cm" aria-label="Agregar Bolsa de cambrel plana 14 × 20 cm a mi solicitud"><b>14 × 20 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 18 × 23 cm" aria-label="Agregar Bolsa de cambrel plana 18 × 23 cm a mi solicitud"><b>18 × 23 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 23 × 30 cm" aria-label="Agregar Bolsa de cambrel plana 23 × 30 cm a mi solicitud"><b>23 × 30 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 26 × 36 cm" aria-label="Agregar Bolsa de cambrel plana 26 × 36 cm a mi solicitud"><b>26 × 36 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 30 × 40 cm" aria-label="Agregar Bolsa de cambrel plana 30 × 40 cm a mi solicitud"><b>30 × 40 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 35 × 45 cm" aria-label="Agregar Bolsa de cambrel plana 35 × 45 cm a mi solicitud"><b>35 × 45 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel plana 40 × 50 cm" aria-label="Agregar Bolsa de cambrel plana 40 × 50 cm a mi solicitud"><b>40 × 50 cm</b></button></div></div>
+      <div><h4>Con fuelle y manija</h4><div class="refgrid"><button class="ref" type="button" data-addx="Bolsa de cambrel con fuelle y manija 30 × 40 cm" aria-label="Agregar Bolsa de cambrel con fuelle y manija 30 × 40 cm a mi solicitud"><b>30 × 40 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel con fuelle y manija 40 × 40 × 10 cm" aria-label="Agregar Bolsa de cambrel con fuelle y manija 40 × 40 × 10 cm a mi solicitud"><b>40 × 40 × 10 cm</b></button><button class="ref" type="button" data-addx="Bolsa de cambrel con fuelle y manija 50 × 50 × 10 cm" aria-label="Agregar Bolsa de cambrel con fuelle y manija 50 × 50 × 10 cm a mi solicitud"><b>50 × 50 × 10 cm</b></button></div></div>
+      <div><h4>Tulas</h4><div class="refgrid"><button class="ref" type="button" data-addx="Tula de cambrel 30 × 40 cm" aria-label="Agregar Tula de cambrel 30 × 40 cm a mi solicitud"><b>30 × 40 cm</b></button></div></div>
+      <p class="refnote">Toca una referencia y la agregamos a tu solicitud.</p>
+    </div>
+  </article>
+</div>
+</div></section>
+
+<section id="cuadros" style="padding:0 0 96px"><div class="wrap">
+  <div style="text-align:center;margin-bottom:36px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <span class="eyebrow">Cuadros y retablos</span>
+    <h2 class="h-l">Tus fotos y tu fe, <span class="mark" style="transform:rotate(2deg)">en la pared.</span></h2>
+  </div>
+  <div class="lineas" style="margin-top:0">
+    <article class="linea" style="--c:#1A1A1A;--t:#ECECEA">
+      <div class="lcopy">
+        <span class="card-cat">Decoración</span>
+        <h3>Retablos y cuadros en lienzo</h3>
+        <p>Convertimos tu foto, tu imagen religiosa o el arte de tu empresa en una pieza lista para colgar. Para hogares, parroquias y oficinas.</p>
+        <ul class="specs"><li>Retablos en MDF con vinilo laminado mate o brillante.</li><li>Efectos especiales: escarchado, holográfico y 3D.</li><li>Cuadros en lienzo templado sobre bastidor de madera. Recomendamos el pino chileno.</li><li>Medidas estándar o totalmente a tu medida.</li></ul>
+      </div>
+      <div class="refs">
+        <div><h4>Retablos en MDF</h4><div class="refgrid"><button class="ref" type="button" data-addx="Retablo en MDF mate" aria-label="Agregar Retablo en MDF mate a mi solicitud"><b>Mate</b></button><button class="ref" type="button" data-addx="Retablo en MDF brillante" aria-label="Agregar Retablo en MDF brillante a mi solicitud"><b>Brillante</b></button><button class="ref" type="button" data-addx="Retablo en MDF escarchado" aria-label="Agregar Retablo en MDF escarchado a mi solicitud"><b>Escarchado</b></button><button class="ref" type="button" data-addx="Retablo en MDF holográfico" aria-label="Agregar Retablo en MDF holográfico a mi solicitud"><b>Holográfico</b></button><button class="ref" type="button" data-addx="Retablo en MDF efecto 3d" aria-label="Agregar Retablo en MDF efecto 3d a mi solicitud"><b>Efecto 3D</b></button></div></div>
+        <div><h4>Cuadros en lienzo</h4><div class="refgrid"><button class="ref" type="button" data-addx="Cuadro en lienzo con bastidor" aria-label="Agregar Cuadro en lienzo con bastidor a mi solicitud"><b>Lienzo con bastidor</b><span>Estándar o a tu medida</span></button></div></div>
+        <p class="refnote">Toca una opción, cuéntanos la medida y te cotizamos.</p>
+      </div>
+    </article>
+  </div>
+</div></section>
+
 
 <section class="historia" id="historia"><div class="wrap">
   <div class="izq">
@@ -388,7 +476,7 @@ textarea{resize:vertical}
     <span style="font-family:var(--display);font-weight:900;font-size:22px;color:var(--amarillo);text-transform:uppercase;letter-spacing:-.01em">Fe, familia y full color.</span>
     <span class="muted"><span data-address>Cra 14 #7A12, Barrio Valencia, Popayán</span></span>
   </div>
-  <nav class="col" aria-label="Pie de página"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
+  <nav class="col" aria-label="Pie de página"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#cuadros">Cuadros</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
   <div class="col">
     <a href="https://wa.me/573122526244" target="_blank" rel="noopener">WhatsApp 312 252 6244 · Mara</a>
     <a href="https://wa.me/573193451013" target="_blank" rel="noopener">WhatsApp 319 345 1013 · Luiza</a>
@@ -489,6 +577,7 @@ function closeDetail(){if($("detailBackdrop").classList.contains("hidden"))retur
 /* solicitud */
 function renderCount(){$$("[data-cart-count]").forEach(e=>e.textContent=state.cart.length);$("floatCart").classList.toggle("hidden",!state.cart.length)}
 function addProduct(id){const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;const had=state.cart.some(x=>String(x.id)===String(id));if(!had)state.cart.push({id:p.id,name:p.name,image:p.image||null,quantity:"",details:""});saveCart();toast(had?"Ya estaba en tu solicitud":"¡Agregado a tu solicitud!")}
+function addCustom(name){const id="ref:"+name;const had=state.cart.some(x=>x.id===id);if(!had)state.cart.push({id,name,image:null,quantity:"",details:""});saveCart();toast(had?"Ya estaba en tu solicitud":"¡Agregado a tu solicitud!")}
 function renderCart(){$("cartList").innerHTML=state.cart.length?state.cart.map((x,i)=>`<div class="item">${x.image?`<img src="${esc(x.image)}" alt="">`:`<div class="mini"></div>`}<div style="display:flex;flex-direction:column;gap:8px"><strong>${esc(x.name)}</strong><label>Cantidad<input data-i="${i}" data-k="quantity" value="${esc(x.quantity)}" placeholder="Ej. 100 unidades"></label><label>Detalles<textarea data-i="${i}" data-k="details" rows="2" placeholder="Medidas, colores, acabado…">${esc(x.details)}</textarea></label></div><button class="rm" type="button" data-rm="${i}" aria-label="Quitar ${esc(x.name)}">×</button></div>`).join(""):`<div class="empty" style="border-radius:22px">${gota("#FFF200","feliz",70,true)}<strong>Tu solicitud está vacía.</strong><span>Agrega productos del catálogo con “+ Cotizar”.</span></div>`;$("sendRequest").disabled=!state.cart.length}
 function openCart(){renderCart();$("drawer").classList.remove("hidden");$("cartBackdrop").classList.remove("hidden");document.body.style.overflow="hidden";$("drawerClose").focus()}
 function closeCart(){$("drawer").classList.add("hidden");$("cartBackdrop").classList.add("hidden");document.body.style.overflow=""}
@@ -503,10 +592,11 @@ function renderBusiness(){const b=state.business;$$("[data-slogan]").forEach(e=>
  if(b.instagram){const h=String(b.instagram).replace(/^@/,"").trim();if(h)$$("[data-ig]").forEach(a=>{a.href=`https://www.instagram.com/${encodeURIComponent(h)}/`;if(a.textContent.startsWith("@"))a.textContent="@"+h})}}
 
 function bind(){
- document.addEventListener("click",e=>{const t=e.target.closest("[data-wa],[data-view],[data-add],[data-cat],[data-open-cart],[data-rm],[data-thumb]");if(!t)return;
+ document.addEventListener("click",e=>{const t=e.target.closest("[data-wa],[data-view],[data-add],[data-addx],[data-cat],[data-open-cart],[data-rm],[data-thumb]");if(!t)return;
   if(t.hasAttribute("data-wa")){e.preventDefault();wa(t.getAttribute("data-wa")||undefined)}
   else if(t.dataset.view)openDetail(t.dataset.view);
   else if(t.dataset.add)addProduct(t.dataset.add);
+  else if(t.dataset.addx)addCustom(t.dataset.addx);
   else if(t.hasAttribute("data-cat")){state.category=t.dataset.cat;renderPills();renderGrid()}
   else if(t.hasAttribute("data-open-cart"))openCart();
   else if(t.dataset.rm){state.cart.splice(Number(t.dataset.rm),1);saveCart();renderCart()}
