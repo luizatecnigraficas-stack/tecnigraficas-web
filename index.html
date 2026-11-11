@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://kqrfcdfygskzhsdzzcze.supabase.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{--cian:#00AEEF;--magenta:#EC008C;--amarillo:#FFF200;--negro:#1A1A1A;--blanco:#FFFFFF;--texto:#1A1A1A;--suave:#3A3A3A;--gris:#F4F4F0;--borde:2.5px solid #1A1A1A;--display:'Poppins',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif}
 *{box-sizing:border-box}
@@ -274,6 +274,60 @@ textarea{resize:vertical}
   .card-foot .acts{width:100%}.card-foot .acts .icon-btn{display:none}
   .card-foot .acts .btn{width:100%;min-height:40px;padding:0 10px;font-size:13px}
 }
+
+/* categorías en cuadritos */
+section[id],article[id]{scroll-margin-top:84px}
+.cats{padding:8px 0 72px}
+.cats-head{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;margin-bottom:34px}
+.cats-head p{margin:0;font-size:19px;color:var(--suave);max-width:560px}
+.cats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.tile{--c:#00AEEF;--t:#DDF4FD;position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:26px;min-height:168px;padding:20px 20px 18px;border:var(--borde);border-radius:26px;background:var(--t);box-shadow:6px 6px 0 var(--c);text-decoration:none;color:var(--texto);cursor:pointer;text-align:left;font:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.tile:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--c)}
+.tile:focus-visible{outline:3px solid var(--cian);outline-offset:3px}
+.tile b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(17px,1.7vw,22px);line-height:1.05;text-transform:uppercase;letter-spacing:-.02em}
+.tile span{display:block;margin-top:6px;font-size:14px;line-height:1.35;color:var(--suave);font-weight:500}
+.tile i{align-self:flex-end;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--negro);color:#fff;font-style:normal;font-weight:900;font-size:18px}
+/* agendas y libretas: estilo cuaderno */
+.cuaderno{position:relative;border:var(--borde);border-radius:36px;overflow:hidden;background-color:#FFFDF6;background-image:linear-gradient(#DCEAF3 1px,transparent 1px),linear-gradient(90deg,#DCEAF3 1px,transparent 1px);background-size:22px 22px;padding:56px 56px 56px 96px}
+.cuaderno .anillas{position:absolute;left:0;top:0;width:46px;height:100%}
+.cuaderno .mano{font-family:'Caveat',cursive;font-weight:700;line-height:1}
+.cu-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center;margin-bottom:44px}
+.cu-top h2{margin-top:10px}
+.cu-top p{margin:14px 0 0;font-size:18px;line-height:1.55;color:var(--suave);max-width:520px}
+.cu-foto{position:relative;justify-self:center;width:min(100%,300px);transform:rotate(3deg)}
+.cu-foto img.f{border:var(--borde);border-radius:14px;box-shadow:6px 6px 0 var(--magenta);aspect-ratio:3/4;object-fit:cover;width:100%;height:auto;background:#fff}
+.cu-foto .cinta-w{position:absolute;left:50%;top:-14px;width:100px;height:26px;margin-left:-50px;background:repeating-linear-gradient(135deg,#EC008C 0 7px,#FF6FBF 7px 14px);opacity:.9;transform:rotate(-4deg)}
+.cu-foto img.don{position:absolute;right:-34px;bottom:-26px;width:96px;height:auto;transform:rotate(-3deg)}
+.cu-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.cu-card{position:relative;background:#fff;border:var(--borde);border-radius:22px;padding:30px 24px 22px;box-shadow:6px 6px 0 var(--c)}
+.cu-card .cinta-w{position:absolute;left:44px;top:-12px;width:92px;height:24px;background:repeating-linear-gradient(135deg,var(--c) 0 7px,var(--c2) 7px 14px);opacity:.92;transform:rotate(-3deg)}
+.cu-card .mano{font-size:26px;color:var(--c)}
+.cu-card h3{font-weight:900;font-size:28px;text-transform:uppercase;letter-spacing:-.02em;margin:2px 0 12px}
+.cu-card .refgrid{margin-top:16px}
+.cu-sizes{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;margin:40px 0 0}
+.cu-sizes .mano{font-size:30px;color:var(--magenta);width:100%;transform:rotate(-2deg)}
+.sz{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.sz u{display:block;border-radius:5px;border-left:7px solid var(--negro);text-decoration:none}
+.sz b{font-family:var(--display);font-weight:800;font-size:15px}
+.sz small{font-family:'Caveat',cursive;font-weight:700;font-size:20px;color:var(--suave)}
+.cu-notas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:44px}
+.nota{position:relative;padding:22px 20px 18px;box-shadow:0 8px 16px rgba(0,0,0,.14)}
+.nota:nth-child(1){background:#FFF59A;transform:rotate(-1.5deg)}.nota:nth-child(2){background:#BDEBFA;transform:rotate(1deg)}.nota:nth-child(3){background:#FFC9E6;transform:rotate(-1deg)}
+.nota .mano{display:block;font-size:27px;margin-bottom:8px}
+.nota ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.nota li{font-size:15px;line-height:1.35;font-weight:500;padding-left:20px;position:relative}
+.nota li::before{content:"";position:absolute;left:0;top:3px;width:11px;height:11px;border:2px solid var(--negro);border-radius:3px;background:#fff}
+.nota p{margin:0;font-size:15.5px;line-height:1.45;font-weight:500}
+.cu-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:36px}
+.cu-cta .mano{font-size:28px;color:var(--cian)}
+@media (max-width:1000px){.cats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:900px){.cu-top,.cu-duo,.cu-notas{grid-template-columns:1fr}.cu-foto{width:min(70%,260px)}}
+@media (max-width:640px){
+  .cats{padding-bottom:56px}.cats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px;padding:0 5px 5px 0}
+  .tile{min-height:140px;padding:14px 14px 12px;border-radius:20px;box-shadow:4px 4px 0 var(--c);gap:14px}.tile span{font-size:12.5px}.tile i{width:34px;height:34px;font-size:16px}
+  .cuaderno{padding:34px 18px 34px 52px;border-radius:26px}.cuaderno .anillas{width:30px}
+  .cu-card{padding:26px 16px 18px}.cu-foto img.don{right:-14px;width:72px}.cu-sizes{gap:16px}
+}
 </style>
 </head>
 <body>
@@ -285,7 +339,7 @@ textarea{resize:vertical}
 
 <header class="nav"><div class="nav-in">
   <a class="logo" href="#inicio"><img src="logo-web.webp" alt="Tecnigráficas · Imprimimos la diferencia" width="640" height="155" style="height:44px;width:auto"></a>
-  <nav class="nav-links" aria-label="Principal"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#cuadros">Cuadros</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
+  <nav class="nav-links" aria-label="Principal"><a href="#categorias">Productos</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
   <div class="nav-actions">
     <a class="btn line small" href="#" data-wa>WhatsApp</a>
     <button class="btn small cart-btn" type="button" data-open-cart aria-label="Ver mi solicitud de cotización">Mi solicitud <span class="cart-count" data-cart-count>0</span></button>
@@ -298,7 +352,7 @@ textarea{resize:vertical}
     <span class="chip">EMPRESA FAMILIAR DE PUBLICIDAD E IMPRESIÓN · POPAYÁN</span>
     <h1 class="h-xl">Imprimimos lo que te <span class="mark">imaginas.</span><br>Y rapidito.</h1>
     <p class="lead">Tarjetas, volantes, pendones, logos, diplomas y cajas personalizadas. Diseñamos e imprimimos contigo.</p>
-    <div class="row"><a class="btn big" href="#productos">Ver productos</a><a class="btn big line" href="#" data-wa>Cotizar por WhatsApp</a></div>
+    <div class="row"><a class="btn big" href="#categorias">Ver productos</a><a class="btn big line" href="#" data-wa>Cotizar por WhatsApp</a></div>
   </div>
   <div class="hero-art" aria-hidden="true">
     <div class="bg"></div>
@@ -317,7 +371,12 @@ textarea{resize:vertical}
   <div class="sello"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Hecho en<br>Popayán</div>
 </div></section>
 
-<section class="sec" id="productos"><div class="wrap">
+<section class="cats" id="categorias"><div class="wrap">
+  <div class="cats-head"><span class="eyebrow">Nuestros productos</span><h2 class="h-l">¿Qué necesitas <span class="mark">hoy?</span></h2><p>Escoge una categoría y te llevamos directo. Si no ves lo que buscas, escríbenos: casi todo lo impreso lo hacemos.</p></div>
+  <div class="cats-grid"><div class="tile" style="--c:#FFF200;--t:#FFFBC4" data-catname="Papelería empresarial" role="button" tabindex="0"><div><b>Papelería empresarial</b><span>Tarjetas, volantes, talonarios y más</span></div><i aria-hidden="true">→</i></div><div class="tile" style="--c:#00AEEF;--t:#DDF4FD" data-catname="Avisos y señalización" role="button" tabindex="0"><div><b>Avisos y señalización</b><span>Avisos, lonas, pendones y vinilos</span></div><i aria-hidden="true">→</i></div><div class="tile" style="--c:#EC008C;--t:#FDE1F0" data-catname="Productos personalizados" role="button" tabindex="0"><div><b>Productos personalizados</b><span>Mugs, llaveros, termos y regalos</span></div><i aria-hidden="true">→</i></div><a class="tile" style="--c:#FFF200;--t:#FFFBC4" href="#agendas"><div><b>Agendas y libretas</b><span>Tu marca en cada apunte</span></div><i aria-hidden="true">→</i></a><a class="tile" style="--c:#EC008C;--t:#FDE1F0" href="#cajas"><div><b>Cajas personalizadas</b><span>16 referencias y a tu medida</span></div><i aria-hidden="true">→</i></a><a class="tile" style="--c:#00AEEF;--t:#DDF4FD" href="#bolsas-papel"><div><b>Bolsas de papel</b><span>15 referencias con tu logo</span></div><i aria-hidden="true">→</i></a><a class="tile" style="--c:#FFF200;--t:#FFFBC4" href="#bolsas-cambrel"><div><b>Bolsas de cambrel</b><span>Reutilizables y marcadas</span></div><i aria-hidden="true">→</i></a><a class="tile" style="--c:#1A1A1A;--t:#ECECEA" href="#cuadros"><div><b>Cuadros y retablos</b><span>Tus fotos y tu fe en la pared</span></div><i aria-hidden="true">→</i></a></div>
+</div></section>
+
+<section class="sec" id="productos" style="padding-top:0"><div class="wrap">
   <div class="cat-head">
     <div class="gotas" id="ctaGotas" aria-hidden="true"></div>
     <span class="eyebrow">Nuestro catálogo</span>
@@ -343,7 +402,7 @@ textarea{resize:vertical}
   <div class="cajas"><div class="caja c"><img src="caja-mini.webp" alt="Cajas rosadas personalizadas para galletas" width="560" height="560" loading="lazy"></div><div class="caja a"><img src="caja-profunda.webp" alt="Caja naranja personalizada para comida" width="560" height="560" loading="lazy"></div><div class="caja b"><img src="caja-prisma.webp" alt="Caja verde con ventana y manija para botellas" width="560" height="560" loading="lazy"></div></div>
 </div>
 <div class="lineas">
-  <article class="linea" style="--c:#FFF200;--t:#FFFBC4">
+  <article class="linea" id="cajas" style="--c:#FFF200;--t:#FFFBC4">
     <div class="lcopy">
       <span class="card-cat">Cajas</span>
       <h3>Cajas personalizadas</h3>
@@ -356,7 +415,7 @@ textarea{resize:vertical}
       <p class="refnote">Toca una referencia y la agregamos a tu solicitud.</p>
     </div>
   </article>
-  <article class="linea" style="--c:#00AEEF;--t:#DDF4FD">
+  <article class="linea" id="bolsas-papel" style="--c:#00AEEF;--t:#DDF4FD">
     <div class="lcopy">
       <span class="card-cat">Bolsas de papel</span>
       <h3>Bolsas de papel con tu logo</h3>
@@ -368,7 +427,7 @@ textarea{resize:vertical}
       <p class="refnote">Toca una referencia y la agregamos a tu solicitud.</p>
     </div>
   </article>
-  <article class="linea" style="--c:#EC008C;--t:#FDE1F0">
+  <article class="linea" id="bolsas-cambrel" style="--c:#EC008C;--t:#FDE1F0">
     <div class="lcopy">
       <span class="card-cat">Bolsas de cambrel</span>
       <h3>Bolsas de cambrel marcadas</h3>
@@ -383,6 +442,42 @@ textarea{resize:vertical}
     </div>
   </article>
 </div>
+</div></section>
+
+<section id="agendas" style="padding:0 0 96px"><div class="wrap"><div class="cuaderno">
+  <svg class="anillas" aria-hidden="true" preserveAspectRatio="none"><defs><pattern id="ringp" width="46" height="30" patternUnits="userSpaceOnUse"><circle cx="30" cy="15" r="4.5" fill="#1A1A1A"/><path d="M30 15 C 18 6, 4 8, 4 15 C 4 22, 18 24, 30 15" fill="none" stroke="#7E848D" stroke-width="3.2" stroke-linecap="round"/></pattern></defs><rect width="100%" height="100%" fill="url(#ringp)"/></svg>
+  <div class="cu-top">
+    <div>
+      <span class="mano" style="font-size:32px;color:var(--magenta);display:inline-block;transform:rotate(-2deg)">libretas y agendas personalizadas</span>
+      <h2 class="h-l">Tu marca en cada <span class="mark">apunte</span></h2>
+      <p>Tapa blanda o pasta dura, en 3 tamaños, con tu logo, tu foto o tu diseño a todo color. Un regalo que se usa todo el año.</p>
+    </div>
+    <div class="cu-foto"><span class="cinta-w"></span><img class="f" src="hero-agendas.webp" alt="Agendas de pasta dura de Tecnigráficas, apiladas y anilladas" width="660" height="880" loading="lazy"><img class="don" src="donfer-pulgar.webp" alt="" width="200" height="260" loading="lazy"></div>
+  </div>
+  <div class="cu-duo">
+    <article class="cu-card" style="--c:#00AEEF;--c2:#7FD8F7"><span class="cinta-w"></span>
+      <span class="mano">tapa blanda</span><h3>Libreta</h3>
+      <ul class="specs"><li>Tapa en propalcote grueso a todo color.</li><li>60 hojas cuadriculadas o en blanco.</li><li>Hoja de datos y calendario.</li><li>Anillada.</li></ul>
+      <div class="refgrid"><button class="ref" type="button" data-addx="Libreta tapa blanda ¼ carta (10,8 × 14 cm)" aria-label="Agregar Libreta tapa blanda ¼ carta (10,8 × 14 cm) a mi solicitud"><b>¼ carta</b><span>10,8 × 14 cm</span></button><button class="ref" type="button" data-addx="Libreta tapa blanda ½ carta (14 × 21,6 cm)" aria-label="Agregar Libreta tapa blanda ½ carta (14 × 21,6 cm) a mi solicitud"><b>½ carta</b><span>14 × 21,6 cm</span></button></div>
+    </article>
+    <article class="cu-card" style="--c:#EC008C;--c2:#FF6FBF"><span class="cinta-w"></span>
+      <span class="mano">pasta dura</span><h3>Agenda</h3>
+      <ul class="specs"><li>Pasta forrada en vinilo laminado, impresa adelante y atrás.</li><li>80 hojas cuadriculadas.</li><li>Datos, calendario y guardas.</li><li>Anillada.</li></ul>
+      <div class="refgrid"><button class="ref" type="button" data-addx="Agenda pasta dura ¼ carta (10,8 × 14 cm)" aria-label="Agregar Agenda pasta dura ¼ carta (10,8 × 14 cm) a mi solicitud"><b>¼ carta</b><span>10,8 × 14 cm</span></button><button class="ref" type="button" data-addx="Agenda pasta dura ½ carta (14 × 21,6 cm)" aria-label="Agregar Agenda pasta dura ½ carta (14 × 21,6 cm) a mi solicitud"><b>½ carta</b><span>14 × 21,6 cm</span></button><button class="ref" type="button" data-addx="Agenda pasta dura grande (17 × 24,5 cm)" aria-label="Agregar Agenda pasta dura grande (17 × 24,5 cm) a mi solicitud"><b>grande</b><span>17 × 24,5 cm</span></button></div>
+    </article>
+  </div>
+  <div class="cu-sizes" aria-label="Tamaños disponibles">
+    <span class="mano">los tamaños</span>
+    <div class="sz"><u style="width:44px;height:57px;background:#00AEEF"></u><b>¼ carta</b><small>10,8 × 14 cm</small></div>
+    <div class="sz"><u style="width:57px;height:88px;background:#FFF200"></u><b>½ carta</b><small>14 × 21,6 cm</small></div>
+    <div class="sz"><u style="width:69px;height:100px;background:#EC008C"></u><b>Grande *</b><small>17 × 24,5 cm</small></div>
+  </div>
+  <div class="cu-notas">
+    <div class="nota"><span class="mano">perfectas para:</span><ul><li>Uso personal</li><li>Colegios</li><li>Empresas</li><li>Material POP</li></ul></div>
+    <div class="nota"><span class="mano">hazla aún más tuya</span><ul><li>Hojas a tu medida: horarios, consultorio, pedidos…</li><li>Separadores a una tinta o a todo color.</li><li>Plastificado para que la tapa blanda dure más.</li><li>Contratapa impresa en libretas.</li></ul></div>
+    <div class="nota"><span class="mano">entre más pides, mejor</span><p>El precio baja con la cantidad. Cuéntanos cuántas necesitas y te cotizamos por WhatsApp. El diseño se cotiza aparte: cuéntanos tu idea y la armamos contigo.</p></div>
+  </div>
+  <div class="cu-cta"><a class="btn big" href="#" data-wa="Hola, Tecnigráficas. Quisiera cotizar libretas o agendas personalizadas.">Cotizar libretas y agendas</a><span class="mano">* el tamaño grande es solo para agendas</span></div>
 </div></section>
 
 <section id="cuadros" style="padding:0 0 96px"><div class="wrap">
@@ -482,7 +577,7 @@ textarea{resize:vertical}
     <span style="font-family:var(--display);font-weight:900;font-size:22px;color:var(--amarillo);text-transform:uppercase;letter-spacing:-.01em">Fe, familia y full color.</span>
     <span class="muted"><span data-address>Cra 14 #7A12, Barrio Valencia, Popayán</span></span>
   </div>
-  <nav class="col" aria-label="Pie de página"><a href="#productos">Productos</a><a href="#empaques">Empaques</a><a href="#cuadros">Cuadros</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
+  <nav class="col" aria-label="Pie de página"><a href="#categorias">Productos</a><a href="#historia">Historia</a><a href="#como">Cómo funciona</a></nav>
   <div class="col">
     <a href="https://wa.me/573122526244" target="_blank" rel="noopener">WhatsApp 312 252 6244 · Mara</a>
     <a href="https://wa.me/573193451013" target="_blank" rel="noopener">WhatsApp 319 345 1013 · Luiza</a>
@@ -616,6 +711,9 @@ function bind(){
  $("sendRequest").addEventListener("click",sendRequest);
 }
 
+document.addEventListener("click",e=>{const t=e.target.closest("[data-catname]");if(t)irCat(t)});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-catname]")){e.preventDefault();irCat(e.target)}});
+function irCat(t){const c=state.categories.find(x=>x.name===t.dataset.catname);if(c){state.category=c.id;renderPills();renderGrid()}document.getElementById("productos").scrollIntoView({behavior:"smooth"})}
 async function init(){$("year").textContent=new Date().getFullYear();bind();renderCharacters();renderCount();
  try{if(!window.supabase)throw new Error("Sin conexión");const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   const [{data,error},{data:vd,error:ve}]=await Promise.all([db.rpc("get_public_catalog"),db.rpc("get_public_catalog_variants")]);
