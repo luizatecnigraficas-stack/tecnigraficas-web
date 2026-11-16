@@ -221,10 +221,10 @@ function home(){
   S.code=null;S.data=null;S.raw='';
   app.innerHTML='<main class="wrap"><div class="welcome"><div class="logo">🧾</div><h1>Las cuentas del viaje, <span>sin pelear</span> 💜</h1><p>Toca tu grupo para entrar.</p></div>'+
   '<h2 style="margin:6px 4px 12px">Grupos</h2><div id="glist"><div class="card empty" style="padding:22px">Buscando grupos…</div></div>'+
-  '<div class="card" style="margin-top:6px"><h2>🌴 Crear un grupo nuevo</h2><input id="gn" placeholder="Nombre (ej. Viaje a Cartagena)" maxlength="60">'+
+  '<div class="card" style="margin-top:6px;padding:4px"><button class="mi" data-a="togglecrear" style="margin:0;background:none"><span class="tile">🌴</span><span style="flex:1">Crear un grupo nuevo</span><span id="chev" style="font-size:22px;color:var(--violet)">＋</span></button><div id="crearbox" style="display:none;padding:6px 14px 14px"><input id="gn" placeholder="Nombre (ej. Viaje a Cartagena)" maxlength="60">'+
   '<label>Quiénes van</label><div id="nm"><input class="pn" placeholder="Tú" maxlength="30"><input class="pn" placeholder="Persona 2" maxlength="30"><input class="pn" placeholder="Persona 3" maxlength="30"><input class="pn" placeholder="Persona 4" maxlength="30"></div>'+
   '<button class="btn ghost" id="addn" style="margin-bottom:10px">+ Otra persona</button><button class="btn" id="crear">Crear grupo</button>'+
-  '<small class="fine">Después podrás unir a las parejas para que cuenten como una sola cuenta.</small></div></main>';
+  '<small class="fine">Después podrás unir a las parejas para que cuenten como una sola cuenta.</small></div></div></main>';
   cargarGrupos();
   document.getElementById('addn').onclick=function(){var i=document.createElement('input');i.className='pn';i.placeholder='Otra persona';i.maxLength=30;document.getElementById('nm').appendChild(i);i.focus();};
   document.getElementById('crear').onclick=function(){
@@ -537,6 +537,7 @@ document.addEventListener('click',function(e){
   if(a==='tab'){S.tab=t.getAttribute('data-t');window.scrollTo(0,0);grupo();}
   else if(a==='entrar'){abrir(t.getAttribute('data-c'));}
   else if(a==='recargar'){home();}
+  else if(a==='togglecrear'){var bx=document.getElementById('crearbox'),ab=bx.style.display==='none';bx.style.display=ab?'block':'none';document.getElementById('chev').textContent=ab?'−':'＋';if(ab){var gn=document.getElementById('gn');setTimeout(function(){gn.focus();bx.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}}
   else if(a==='filtro'){S.filtro=t.getAttribute('data-c');grupo();}
   else if(a==='grupo'){grupoSheet();}
   else if(a==='nuevo'){nuevoGasto();}
