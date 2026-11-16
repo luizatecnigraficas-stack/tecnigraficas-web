@@ -213,16 +213,19 @@ function liquidar(net){
 function byKey(cx,k){for(var i=0;i<cx.U.length;i++)if(cx.U[i].key===k)return cx.U[i];return null;}
 
 /* ---------- inicio ---------- */
+function emG(g){
+  if(/pizza/i.test(g.nombre))return '🍕';
+  var EM=['🌴','🏖️','🎉','🍹','🚗','✈️'],n=0;for(var i=0;i<g.codigo.length;i++)n+=g.codigo.charCodeAt(i);return EM[n%EM.length];
+}
 function home(){
   S.code=null;S.data=null;S.raw='';
-  app.innerHTML='<main class="wrap"><div class="welcome"><div class="logo">🧾</div><h1>Las cuentas del viaje, <span>sin pelear</span> 💜</h1><p>Anoten los gastos desde el cel y la app calcula quién le debe a quién.</p><div class="feats"><div class="feat"><span class="tile" style="background:#ece8ff">💞</span><div><b>Por parejas</b><small>Cada pareja cuenta como una sola cuenta</small></div></div><div class="feat"><span class="tile" style="background:#ffe3ee">📲</span><div><b>Todas desde su cel</b><small>Solo con un link, sin cuentas ni claves</small></div></div><div class="feat"><span class="tile" style="background:#e1f6ea">⚖️</span><div><b>Quién debe a quién</b><small>Los pagos mínimos para quedar a mano</small></div></div></div></div>'+
-  '<div class="card"><h2>🔑 Entrar a un grupo</h2><input id="cod" placeholder="Código (ej. K7M2QX)" maxlength="6" autocapitalize="characters" autocomplete="off"><button class="btn" id="ent">Entrar</button></div>'+
-  '<div class="card"><h2>🌴 Crear un grupo nuevo</h2><input id="gn" placeholder="Nombre (ej. Viaje a Cartagena)" maxlength="60">'+
+  app.innerHTML='<main class="wrap"><div class="welcome"><div class="logo">🧾</div><h1>Las cuentas del viaje, <span>sin pelear</span> 💜</h1><p>Toca tu grupo para entrar.</p></div>'+
+  '<h2 style="margin:6px 4px 12px">Grupos</h2><div id="glist"><div class="card empty" style="padding:22px">Buscando grupos…</div></div>'+
+  '<div class="card" style="margin-top:6px"><h2>🌴 Crear un grupo nuevo</h2><input id="gn" placeholder="Nombre (ej. Viaje a Cartagena)" maxlength="60">'+
   '<label>Quiénes van</label><div id="nm"><input class="pn" placeholder="Tú" maxlength="30"><input class="pn" placeholder="Persona 2" maxlength="30"><input class="pn" placeholder="Persona 3" maxlength="30"><input class="pn" placeholder="Persona 4" maxlength="30"></div>'+
   '<button class="btn ghost" id="addn" style="margin-bottom:10px">+ Otra persona</button><button class="btn" id="crear">Crear grupo</button>'+
-  '<small class="fine">Después podrás unir a las parejas para que cuenten como una sola cuenta.</small></div>'+
-  '<small class="fine" style="text-align:center">Quien tenga el código del grupo puede ver y anotar gastos. No lo compartas por fuera del grupo.</small></main>';
-  document.getElementById('ent').onclick=function(){var c=document.getElementById('cod').value.trim().toUpperCase();if(c.length<4)return toast('Escribe el código del grupo');abrir(c);};
+  '<small class="fine">Después podrás unir a las parejas para que cuenten como una sola cuenta.</small></div></main>';
+  cargarGrupos();
   document.getElementById('addn').onclick=function(){var i=document.createElement('input');i.className='pn';i.placeholder='Otra persona';i.maxLength=30;document.getElementById('nm').appendChild(i);i.focus();};
   document.getElementById('crear').onclick=function(){
     var n=document.getElementById('gn').value.trim();
@@ -232,6 +235,20 @@ function home(){
     var b=this;b.disabled=true;
     rpc('viaje_crear_grupo',{p_nombre:n,p_miembros:ms}).then(function(r){abrir(r.codigo);}).catch(function(e){b.disabled=false;toast(e.message);});
   };
+}
+function cargarGrupos(){
+  var PAST=['#ffe3ee','#e1ebff','#e1f6ea','#f0e6ff','#fff0d4'];
+  rpc('viaje_listar_grupos').then(function(l){
+    var box=document.getElementById('glist');if(!box||S.code)return;
+    if(!l||!l.length){box.innerHTML='<div class="card empty" style="padding:22px">Aún no hay grupos. Crea el primero 👇</div>';return;}
+    box.innerHTML=l.map(function(g,i){
+      return '<div class="gasto" data-a="entrar" data-c="'+esc(g.codigo)+'"><div class="em" style="background:'+PAST[i%PAST.length]+'">'+emG(g)+'</div><div class="mid"><div class="d">'+esc(g.nombre)+'</div><div class="s">'+esc(g.miembros||'')+'</div></div>'+
+        '<div class="m">'+fmt(g.total)+'<small>'+g.gastos+(g.gastos===1?' gasto':' gastos')+'</small></div></div>';
+    }).join('');
+  }).catch(function(e){
+    var box=document.getElementById('glist');if(!box)return;
+    box.innerHTML='<div class="card empty" style="padding:22px">No pude cargar los grupos 😅<br><button class="btn small" style="margin:12px auto 0" data-a="recargar">Reintentar</button></div>';
+  });
 }
 
 function abrir(code){
@@ -276,7 +293,7 @@ function grupo(){
     else pill='🎉 '+(pl?'Ustedes están ':'Estás ')+'a paz y salvo';
   }else pill='👀 Toca <b>Grupo → ¿Quién eres?</b>';
   var avs=cx.U.slice(0,4).map(function(u){return avU(u,36);}).join('');
-  var h='<main class="wrap"><div class="topbar"><button class="rbtn" data-a="salir" aria-label="Salir">←</button><div class="topr"><button class="rbtn" data-a="parejas" aria-label="Parejas">💞</button><button class="rbtn" data-a="invitar" aria-label="Invitar">📲</button></div></div>'+
+  var h='<main class="wrap"><div class="topbar"><button class="rbtn" data-a="salir" aria-label="Ver todos los grupos">←</button><div class="topr"><button class="rbtn" data-a="parejas" aria-label="Parejas">💞</button><button class="rbtn" data-a="invitar" aria-label="Invitar">📲</button></div></div>'+
     '<div class="greet">'+(S.me?'Hola, '+esc(nombre(d,S.me))+' 👋':'Hola 👋')+'</div><div class="gtitle">'+esc(d.grupo.nombre)+'</div>'+
     '<div class="gmeta"><span class="code">'+esc(d.grupo.codigo)+'</span><span>'+esc(sub)+'</span></div>'+
     '<div class="hero2"><div class="havs">'+avs+'</div><div class="hk">Total del viaje</div><div class="htot">'+fmt(total)+'</div><div class="hpill">'+pill+'</div></div>';
@@ -352,7 +369,7 @@ function grupoSheet(){
     '<button class="mi" data-a="invitar"><span class="tile">📲</span>Invitar por WhatsApp</button>'+
     '<button class="mi" data-a="parejas"><span class="tile">💞</span>Parejas</button>'+
     '<button class="mi" data-a="yo"><span class="tile">👤</span>¿Quién eres?</button>'+
-    '<button class="mi" data-a="salir"><span class="tile">🚪</span>Salir del grupo</button>');
+    '<button class="mi" data-a="salir"><span class="tile">🚪</span>Ver todos los grupos</button>');
 }
 
 /* ---------- hojas ---------- */
@@ -517,7 +534,11 @@ function detalle(id){
 document.addEventListener('click',function(e){
   var t=e.target.closest('[data-a]');if(!t)return;
   var a=t.getAttribute('data-a');
-  if(a==='tab'){S.tab=t.getAttribute('data-t');grupo();}
+  if(a==='tab'){S.tab=t.getAttribute('data-t');window.scrollTo(0,0);grupo();}
+  else if(a==='entrar'){abrir(t.getAttribute('data-c'));}
+  else if(a==='recargar'){home();}
+  else if(a==='filtro'){S.filtro=t.getAttribute('data-c');grupo();}
+  else if(a==='grupo'){grupoSheet();}
   else if(a==='nuevo'){nuevoGasto();}
   else if(a==='gasto'){detalle(t.getAttribute('data-id'));}
   else if(a==='cerrar'){cerrarSheet();}
