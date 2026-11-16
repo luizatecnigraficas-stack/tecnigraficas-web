@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1A1A1A">
+<title>Cuentas del viaje</title>
+<style>
+:root{--neg:#1A1A1A;--am:#FFD23F;--bg:#FAF8F3;--tx:#1d1d1d;--mut:#76716a;--ok:#1f8a4c;--debe:#c2410c;--card:#fff;--line:#ece7dd}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased}
+body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:520px;margin:0 auto;padding:20px 16px}
+h1{font-size:26px;margin:6px 0 4px}
+h2{font-size:17px;margin:0 0 12px}
+h3{font-size:19px;margin:0 0 14px}
+.sub{color:var(--mut);margin:0 0 18px;line-height:1.4}
+.logo{font-size:40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+input,select{width:100%;font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--tx);margin-bottom:10px;outline:none}
+input:focus,select:focus{border-color:var(--neg)}
+label{display:block;font-size:13px;font-weight:700;color:var(--mut);margin:6px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:50px;border:0;border-radius:14px;background:var(--neg);color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+.btn:disabled{opacity:.5}
+.btn.ghost{background:#fff;color:var(--neg);border:1.5px solid var(--neg);margin-bottom:10px}
+.btn.yellow{background:var(--am);color:var(--neg)}
+.btn.small{min-height:40px;width:auto;padding:0 14px;font-size:14px;border-radius:12px}
+.btn.danger{background:#b91c1c}
+.top{position:sticky;top:0;z-index:5;background:var(--neg);color:#fff;padding:14px 16px 10px;padding-top:calc(14px + env(safe-area-inset-top))}
+.top .in{max-width:520px;margin:0 auto}
+.top .t1{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.top .name{font-weight:800;font-size:19px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code{display:inline-block;background:var(--am);color:var(--neg);font-weight:900;letter-spacing:.12em;border-radius:8px;padding:3px 9px;font-size:14px}
+.top .row2{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.top a,.top button.lnk{color:#fff;background:#ffffff22;border:0;border-radius:10px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;text-decoration:none;cursor:pointer}
+.tabs{display:flex;gap:6px;background:#ece7dd;border-radius:14px;padding:4px;margin:14px 0}
+.tabs button{flex:1;border:0;background:transparent;font:inherit;font-weight:800;font-size:15px;padding:11px 6px;border-radius:11px;color:var(--mut);cursor:pointer}
+.tabs button.on{background:#fff;color:var(--neg);box-shadow:0 1px 3px #0002}
+.resumen-top{display:flex;gap:10px}
+.resumen-top>div{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}
+.resumen-top small{display:block;color:var(--mut);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.resumen-top b{font-size:20px}
+.pos{color:var(--ok)}.neg{color:var(--debe)}
+.item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.item:last-child{border-bottom:0}
+.item .em{font-size:24px;width:36px;text-align:center}
+.item .mid{flex:1;min-width:0}
+.item .d{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .s{color:var(--mut);font-size:13px;margin-top:2px}
+.item .m{font-weight:800;text-align:right;white-space:nowrap}
+.item .m small{display:block;font-weight:600;color:var(--mut);font-size:12px}
+.empty{text-align:center;color:var(--mut);padding:26px 10px;line-height:1.5}
+.fab{position:fixed;right:18px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:6;background:var(--am);color:var(--neg);border:0;border-radius:999px;height:58px;padding:0 22px;font:inherit;font-weight:900;font-size:17px;box-shadow:0 6px 18px #0004;cursor:pointer}
+.ov{position:fixed;inset:0;background:#000a;z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sh{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+.money{position:relative}
+.money span{position:absolute;left:14px;top:12px;font-weight:800;color:var(--mut)}
+.money input{padding-left:30px;font-size:22px;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;color:var(--tx)}
+.chip.on{background:var(--neg);color:#fff;border-color:var(--neg)}
+.seg{display:flex;gap:6px;margin-bottom:12px}
+.seg button{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;color:var(--mut)}
+.seg button.on{background:var(--am);border-color:var(--am);color:var(--neg)}
+.prow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.prow .n{flex:1;font-weight:700}
+.prow input{width:120px;margin:0;text-align:right}
+.resumen{background:#f4f1ea;border-radius:12px;padding:10px 12px;font-size:14px;margin:6px 0 12px;line-height:1.4}
+.resumen.bad{background:#fde8e1;color:#9a3412}
+.bal{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.bal:last-child{border-bottom:0}
+.pay{padding:12px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;justify-content:space-between}
+.pay:last-child{border-bottom:0}
+.pay .tx{flex:1;line-height:1.35}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom));background:var(--neg);color:#fff;padding:12px 18px;border-radius:14px;z-index:40;font-weight:700;max-width:90%;text-align:center}
+.fine{color:var(--mut);font-size:13px;line-height:1.5;display:block;margin-top:14px}
+.x{background:none;border:0;color:var(--mut);font-size:20px;cursor:pointer;padding:6px 10px}
+.spin{text-align:center;padding:60px 0;color:var(--mut)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="sheet"></div>
+<div id="toast"></div>
+<script>
+(function(){
+'use strict';
+var API='https://kqrfcdfygskzhsdzzcze.supabase.co/rest/v1/rpc/';
+var KEY='sb_publishable_KfkIr6TlW6ivuT5cD0g9Kg_EuZwDKJ9';
+var CATS=[['🍽️','Comida'],['🛒','Mercado'],['🚗','Transporte'],['🏨','Hospedaje'],['🎉','Plan'],['💸','Otro']];
+var MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+var app=document.getElementById('app'), sheetEl=document.getElementById('sheet'), toastEl=document.getElementById('toast');
+var S={code:null,data:null,raw:'',me:null,tab:'gastos',busy:false};
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function fmt(n){var neg=n<0;var s=String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,'.');return (neg?'-':'')+'$'+s;}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}return null;}
+function toast(t){toastEl.innerHTML='<div class="toast">'+esc(t)+'</div>';clearTimeout(toast._t);toast._t=setTimeout(function(){toastEl.innerHTML='';},2800);}
+function fecha(f){if(!f)return '';var p=String(f).split('-');return parseInt(p[2],10)+' '+MESES[parseInt(p[1],10)-1];}
+function emoji(c){for(var i=0;i<CATS.length;i++)if(CATS[i][1]===c)return CATS[i][0];return '🧾';}
+
+function rpc(fn,args){
+  return fetch(API+fn,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json'},body:JSON.stringify(args||{})})
+    .then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null;}catch(e){}
+      if(!r.ok)throw new Error((j&&j.message)||'No se pudo conectar. Revisa tu internet.');return j;});});
+}
+
+/* ---------- cálculo ---------- */
+function nombre(d,id){for(var i=0;i<d.miembros.length;i++)if(d.miembros[i].id===id)return d.miembros[i].nombre;return '?';}
+function calc(d){
+  var net={};d.miembros.forEach(function(m){net[m.id]=0;});
+  d.gastos.forEach(function(g){net[g.pagador_id]+=g.monto;g.reparto.forEach(function(r){net[r.miembro_id]-=r.monto;});});
+  d.pagos.forEach(function(p){net[p.de_id]+=p.monto;net[p.para_id]-=p.monto;});
+  return net;
+}
+function liquidar(net){
+  var cr=[],de=[];
+  Object.keys(net).forEach(function(id){if(net[id]>0)cr.push([id,net[id]]);else if(net[id]<0)de.push([id,-net[id]]);});
+  cr.sort(function(a,b){return b[1]-a[1];});de.sort(function(a,b){return b[1]-a[1];});
+  var i=0,j=0,out=[];
+  while(i<de.length&&j<cr.length){
+    var x=Math.min(de[i][1],cr[j][1]);
+    out.push({de:de[i][0],para:cr[j][0],monto:x});
+    de[i][1]-=x;cr[j][1]-=x;
+    if(de[i][1]===0)i++;if(cr[j][1]===0)j++;
+  }
+  return out;
+}
+
+/* ---------- pantallas ---------- */
+function home(){
+  S.code=null;S.data=null;S.raw='';
+  app.innerHTML='<main class="wrap"><div class="logo">🧾</div><h1>Cuentas del viaje</h1>'+
+  '<p class="sub">Anoten los gastos desde el cel y la app calcula quién le debe a quién. Sin cuentas ni contraseñas.</p>'+
+  '<div class="card"><h2>Entrar a un grupo</h2><input id="cod" placeholder="Código (ej. K7M2QX)" maxlength="6" autocapitalize="characters" autocomplete="off"><button class="btn" id="ent">Entrar</button></div>'+
+  '<div class="card"><h2>Crear un grupo nuevo</h2><input id="gn" placeholder="Nombre (ej. Viaje a Cartagena)" maxlength="60">'+
+  '<label>Quiénes van</label><div id="nm"><input class="pn" placeholder="Tú" maxlength="30"><input class="pn" placeholder="Amiga 2" maxlength="30"><input class="pn" placeholder="Amiga 3" maxlength="30"></div>'+
+  '<button class="btn ghost" id="addn">+ Otra persona</button><button class="btn yellow" id="crear">Crear grupo</button></div>'+
+  '<small class="fine">Quien tenga el código del grupo puede ver y anotar gastos. No lo compartas por fuera del grupo.</small></main>';
+  document.getElementById('ent').onclick=function(){var c=document.getElementById('cod').value.trim().toUpperCase();if(c.length<4)return toast('Escribe el código del grupo');abrir(c);};
+  document.getElementById('addn').onclick=function(){var i=document.createElement('input');i.className='pn';i.placeholder='Otra persona';i.maxLength=30;document.getElementById('nm').appendChild(i);i.focus();};
+  document.getElementById('crear').onclick=function(){
+    var n=document.getElementById('gn').value.trim();
+    var ms=[].slice.call(document.querySelectorAll('.pn')).map(function(x){return x.value.trim();}).filter(Boolean);
+    if(!n)return toast('Ponle nombre al grupo');
+    if(ms.length<2)return toast('Pon al menos 2 personas');
+    var b=this;b.disabled=true;
+    rpc('viaje_crear_grupo',{p_nombre:n,p_miembros:ms}).then(function(r){abrir(r.codigo);}).catch(function(e){b.disabled=false;toast(e.message);});
+  };
+}
+
+function abrir(code){
+  app.innerHTML='<div class="spin">Cargando…</div>';
+  rpc('viaje_estado',{p_codigo:code}).then(function(d){
+    if(!d){toast('No encontré ese código');ls('viaje.code',null);try{history.replaceState(null,'',location.pathname);}catch(e){}return home();}
+    S.code=d.grupo.codigo;S.data=d;S.raw=JSON.stringify(d);S.tab='gastos';
+    ls('viaje.code',S.code);try{history.replaceState(null,'','#'+S.code);}catch(e){}
+    var me=ls('viaje.me.'+S.code);
+    S.me=(me&&d.miembros.some(function(m){return m.id===me;}))?me:null;
+    grupo();
+    if(!S.me&&ls('viaje.me.skip.'+S.code)!=='1')preguntarYo();
+  }).catch(function(e){
+    app.innerHTML='<main class="wrap"><div class="card"><h2>Ay, no cargó</h2><p class="sub">'+esc(e.message)+'</p><button class="btn" id="re">Reintentar</button><div style="height:10px"></div><button class="btn ghost" id="sal">Volver al inicio</button></div></main>';
+    document.getElementById('re').onclick=function(){abrir(code);};
+    document.getElementById('sal').onclick=function(){ls('viaje.code',null);home();};
+  });
+}
+
+function refrescar(){
+  return rpc('viaje_estado',{p_codigo:S.code}).then(function(d){
+    if(!d)return;var raw=JSON.stringify(d);
+    if(raw!==S.raw){S.raw=raw;S.data=d;grupo();}
+  });
+}
+
+function grupo(){
+  var d=S.data,net=calc(d),y=window.scrollY;
+  var total=d.gastos.reduce(function(a,g){return a+g.monto;},0);
+  var yo=S.me?net[S.me]:null;
+  var tuTxt='';
+  if(S.me){var cls=yo>0?'pos':(yo<0?'neg':'');var lab=yo>0?'Te deben':(yo<0?'Debes':'Estás a paz');tuTxt='<div><small>'+lab+'</small><b class="'+cls+'">'+(yo===0?'y salvo ✅':fmt(Math.abs(yo)))+'</b></div>';}
+  var html='<div class="top"><div class="in"><div class="t1"><div class="name">'+esc(d.grupo.nombre)+'</div><span class="code">'+esc(d.grupo.codigo)+'</span></div>'+
+    '<div class="row2"><button class="lnk" data-a="invitar">📲 Invitar</button><button class="lnk" data-a="yo">👤 '+(S.me?esc(nombre(d,S.me)):'¿Quién eres?')+'</button><button class="lnk" data-a="salir">Salir</button></div></div></div>'+
+    '<main class="wrap"><div class="resumen-top"><div><small>Total gastado</small><b>'+fmt(total)+'</b></div>'+tuTxt+'</div>'+
+    '<div class="tabs"><button data-a="tab" data-t="gastos" class="'+(S.tab==='gastos'?'on':'')+'">Gastos</button><button data-a="tab" data-t="saldos" class="'+(S.tab==='saldos'?'on':'')+'">Quién debe a quién</button></div>';
+  html+=S.tab==='gastos'?vistaGastos(d):vistaSaldos(d,net);
+  html+='</main><button class="fab" data-a="nuevo">+ Gasto</button>';
+  app.innerHTML=html;
+  window.scrollTo(0,y);
+}
+
+function vistaGastos(d){
+  if(!d.gastos.length)return '<div class="card empty">Aún no hay gastos.<br>Toca <b>+ Gasto</b> y anota el primero 🎉</div>';
+  var h='<div class="card" style="padding:4px 16px">';
+  d.gastos.forEach(function(g){
+    var mia=null;if(S.me)g.reparto.forEach(function(r){if(r.miembro_id===S.me)mia=r.monto;});
+    h+='<div class="item" data-a="gasto" data-id="'+esc(g.id)+'"><div class="em">'+emoji(g.categoria)+'</div><div class="mid"><div class="d">'+esc(g.descripcion)+'</div><div class="s">Pagó '+esc(nombre(d,g.pagador_id))+' · '+fecha(g.fecha)+'</div></div>'+
+       '<div class="m">'+fmt(g.monto)+(S.me?'<small>'+(mia!==null?'tu parte '+fmt(mia):'no entras')+'</small>':'')+'</div></div>';
+  });
+  return h+'</div>';
+}
+
+function vistaSaldos(d,net){
+  var sug=liquidar(net),h='';
+  h+='<div class="card"><h2>Para quedar a mano</h2>';
+  if(!sug.length)h+='<div class="empty" style="padding:10px">Todo cuadrado, nadie debe nada ✅</div>';
+  sug.forEach(function(s,i){
+    h+='<div class="pay"><div class="tx"><b>'+esc(nombre(d,s.de))+'</b> le paga <b>'+fmt(s.monto)+'</b> a <b>'+esc(nombre(d,s.para))+'</b></div><button class="btn small" data-a="pagado" data-i="'+i+'">Ya pagó</button></div>';
+  });
+  h+='<small class="fine" style="margin-top:8px">Cuando alguien pague, toca "Ya pagó" para que se descuente. La plata se mueve por fuera (Nequi, efectivo…).</small></div>';
+  h+='<div class="card"><h2>Saldo de cada una</h2>';
+  d.miembros.forEach(function(m){var v=net[m.id];h+='<div class="bal"><span>'+esc(m.nombre)+'</span><b class="'+(v>0?'pos':(v<0?'neg':''))+'">'+(v>0?'le deben '+fmt(v):(v<0?'debe '+fmt(-v):'a paz y salvo'))+'</b></div>';});
+  h+='</div>';
+  if(d.pagos.length){
+    h+='<div class="card"><h2>Pagos registrados</h2>';
+    d.pagos.forEach(function(p){h+='<div class="pay"><div class="tx">'+esc(nombre(d,p.de_id))+' → '+esc(nombre(d,p.para_id))+' · <b>'+fmt(p.monto)+'</b></div><button class="x" data-a="borrarpago" data-id="'+esc(p.id)+'" aria-label="Borrar pago">🗑️</button></div>';});
+    h+='</div>';
+  }
+  h+='<div class="card"><h2>¿Se une alguien más?</h2><div style="display:flex;gap:8px"><input id="nuevom" placeholder="Nombre" maxlength="30" style="margin:0"><button class="btn small" data-a="addm" style="min-height:48px">Agregar</button></div></div>';
+  return h;
+}
+
+/* ---------- hojas ---------- */
+function abrirSheet(html){sheetEl.innerHTML='<div class="ov" id="ov"><div class="sh">'+html+'</div></div>';document.getElementById('ov').addEventListener('click',function(e){if(e.target.id==='ov')cerrarSheet();});}
+function cerrarSheet(){sheetEl.innerHTML='';}
+function sheetOpen(){return sheetEl.innerHTML!=='';}
+
+function preguntarYo(){
+  var d=S.data,h='<h3>¿Quién eres tú?</h3><p class="sub">Así te muestro tus saldos y te pongo a ti de pagador por defecto.</p>';
+  d.miembros.forEach(function(m){h+='<button class="btn ghost" data-a="soyyo" data-id="'+esc(m.id)+'">'+esc(m.nombre)+'</button>';});
+  h+='<button class="btn" style="background:#e7e2d8;color:#1a1a1a" data-a="soloveo">Solo estoy mirando</button>';
+  abrirSheet(h);
+}
+
+function invitar(){
+  var link=location.origin+location.pathname+'#'+S.code;
+  var msg='Entra a las cuentas de "'+S.data.grupo.nombre+'": '+link+'\nCódigo: '+S.code;
+  abrirSheet('<h3>Invitar al grupo</h3><p class="sub">Mándales el link por WhatsApp. Al abrirlo eligen quiénes son y listo.</p>'+
+    '<a class="btn yellow" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msg)+'">Enviar por WhatsApp</a><div style="height:10px"></div>'+
+    '<button class="btn ghost" data-a="copiar">Copiar link</button>'+
+    '<div class="resumen" id="lk" style="word-break:break-all">'+esc(link)+'<br>Código: <b>'+esc(S.code)+'</b></div>'+
+    '<button class="btn" style="background:#e7e2d8;color:#1a1a1a" data-a="cerrar">Cerrar</button>');
+  S.link=link;
+}
+
+/* ---------- nuevo gasto ---------- */
+var F=null;
+function nuevoGasto(){
+  var d=S.data;
+  F={desc:'',monto:0,cat:'Comida',pagador:S.me||d.miembros[0].id,modo:'igual',sel:{},vals:{}};
+  d.miembros.forEach(function(m){F.sel[m.id]=true;});
+  var h='<h3>Nuevo gasto</h3><input id="fd" placeholder="¿En qué se gastó? (ej. Almuerzo)" maxlength="80" autocomplete="off">'+
+    '<div class="money"><span>$</span><input id="fm" inputmode="numeric" placeholder="0" autocomplete="off"></div>'+
+    '<label>Categoría</label><div class="chips" id="fc">'+CATS.map(function(c){return '<button class="chip'+(c[1]===F.cat?' on':'')+'" data-a="cat" data-c="'+c[1]+'">'+c[0]+' '+c[1]+'</button>';}).join('')+'</div>'+
+    '<label>¿Quién pagó?</label><select id="fp">'+d.miembros.map(function(m){return '<option value="'+esc(m.id)+'"'+(m.id===F.pagador?' selected':'')+'>'+esc(m.nombre)+'</option>';}).join('')+'</select>'+
+    '<label>¿Cómo se divide?</label><div class="seg" id="fmode"><button data-a="modo" data-m="igual" class="on">Igual</button><button data-a="modo" data-m="exacto">Exacto</button><button data-a="modo" data-m="pct">%</button><button data-a="modo" data-m="partes">Partes</button></div>'+
+    '<div id="split"></div><div class="resumen" id="resumen"></div>'+
+    '<button class="btn yellow" id="guardar" data-a="guardar">Guardar gasto</button><div style="height:10px"></div><button class="btn" style="background:#e7e2d8;color:#1a1a1a" data-a="cerrar">Cancelar</button>';
+  abrirSheet(h);
+  var fm=document.getElementById('fm');
+  fm.addEventListener('input',function(){var n=parseInt(fm.value.replace(/\D/g,''),10)||0;F.monto=n;fm.value=n?String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.'):'';upd();});
+  document.getElementById('fd').addEventListener('input',function(e){F.desc=e.target.value;});
+  document.getElementById('fp').addEventListener('change',function(e){F.pagador=e.target.value;});
+  dibujarSplit();upd();
+  setTimeout(function(){document.getElementById('fd').focus();},50);
+}
+function dibujarSplit(){
+  var d=S.data,box=document.getElementById('split'),h='';
+  if(F.modo==='igual'){
+    h='<div class="chips">'+d.miembros.map(function(m){return '<button class="chip'+(F.sel[m.id]?' on':'')+'" data-a="sel" data-id="'+esc(m.id)+'">'+esc(m.nombre)+'</button>';}).join('')+'</div>';
+  }else{
+    var ph=F.modo==='exacto'?'$ 0':(F.modo==='pct'?'0 %':'1');
+    h=d.miembros.map(function(m){
+      var v=F.vals[m.id]!==undefined?F.vals[m.id]:(F.modo==='partes'?'1':'');
+      return '<div class="prow"><div class="n">'+esc(m.nombre)+'</div><input data-vid="'+esc(m.id)+'" inputmode="'+(F.modo==='exacto'?'numeric':'decimal')+'" placeholder="'+ph+'" value="'+esc(v)+'"></div>';
+    }).join('');
+  }
+  box.innerHTML=h;
+  [].slice.call(box.querySelectorAll('input[data-vid]')).forEach(function(inp){
+    inp.addEventListener('input',function(){F.vals[inp.getAttribute('data-vid')]=inp.value;upd();});
+  });
+}
+function repartir(){
+  var d=S.data,ids=d.miembros.map(function(m){return m.id;}),T=F.monto,list=[],i;
+  if(!T)return {msg:'Pon el monto'};
+  function conResto(pesos){ // pesos: [{id,w}] reparte T proporcional a w
+    var W=pesos.reduce(function(a,p){return a+p.w;},0);if(!W)return null;
+    var out=pesos.map(function(p){return {miembro_id:p.id,monto:Math.floor(T*p.w/W)};});
+    var rest=T-out.reduce(function(a,p){return a+p.monto;},0);
+    for(i=0;rest>0&&i<out.length;i=(i+1)%out.length){out[i].monto+=1;rest--;}
+    return out;
+  }
+  if(F.modo==='igual'){
+    var sel=ids.filter(function(id){return F.sel[id];});
+    if(!sel.length)return {msg:'Escoge al menos una persona'};
+    return {list:conResto(sel.map(function(id){return {id:id,w:1};})),info:'Cada una aprox. '+fmt(T/sel.length)};
+  }
+  if(F.modo==='exacto'){
+    var s=0;ids.forEach(function(id){var v=parseInt(String(F.vals[id]||'').replace(/\D/g,''),10)||0;s+=v;if(v>0)list.push({miembro_id:id,monto:v});});
+    if(s!==T)return {msg:s<T?'Faltan '+fmt(T-s)+' por asignar':'Te pasaste por '+fmt(s-T),bad:true};
+    return {list:list,info:'Cuadra perfecto ✅'};
+  }
+  var ws=[],tot=0;
+  ids.forEach(function(id){var v=parseFloat(String(F.vals[id]===undefined&&F.modo==='partes'?'1':(F.vals[id]||'')).replace(',','.'))||0;if(v>0){ws.push({id:id,w:v});tot+=v;}});
+  if(!ws.length)return {msg:'Pon los valores de cada una',bad:true};
+  if(F.modo==='pct'&&Math.abs(tot-100)>0.01)return {msg:'Los porcentajes suman '+(Math.round(tot*100)/100)+'% (deben sumar 100%)',bad:true};
+  return {list:conResto(ws),info:F.modo==='pct'?'Suma 100% ✅':'Total de partes: '+tot};
+}
+function upd(){
+  var r=document.getElementById('resumen');if(!r||!F)return;
+  var x=repartir();
+  r.className='resumen'+(x.bad?' bad':'');
+  r.textContent=x.list?x.info:(x.msg||'');
+}
+function guardar(){
+  var x=repartir();
+  if(!F.desc.trim())return toast('Falta la descripción');
+  if(!x.list)return toast(x.msg||'Revisa el reparto');
+  var b=document.getElementById('guardar');b.disabled=true;
+  rpc('viaje_agregar_gasto',{p_codigo:S.code,p_descripcion:F.desc.trim(),p_monto:F.monto,p_pagador:F.pagador,p_reparto:x.list,p_categoria:F.cat})
+    .then(function(){cerrarSheet();toast('Gasto guardado ✅');S.tab='gastos';S.raw='';return refrescar();})
+    .catch(function(e){b.disabled=false;toast(e.message);});
+}
+
+/* ---------- detalle de gasto ---------- */
+function detalle(id){
+  var d=S.data,g=d.gastos.filter(function(x){return x.id===id;})[0];if(!g)return;
+  var h='<h3>'+emoji(g.categoria)+' '+esc(g.descripcion)+'</h3><p class="sub">'+fmt(g.monto)+' · pagó '+esc(nombre(d,g.pagador_id))+' · '+fecha(g.fecha)+'</p><div class="card" style="padding:4px 16px">';
+  g.reparto.forEach(function(r){h+='<div class="bal"><span>'+esc(nombre(d,r.miembro_id))+'</span><b>'+fmt(r.monto)+'</b></div>';});
+  h+='</div><button class="btn danger" data-a="borrar" data-id="'+esc(g.id)+'">Borrar gasto</button><div style="height:10px"></div><button class="btn" style="background:#e7e2d8;color:#1a1a1a" data-a="cerrar">Cerrar</button>';
+  abrirSheet(h);
+}
+
+/* ---------- eventos ---------- */
+var armado={};
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-a]');if(!t)return;
+  var a=t.getAttribute('data-a');
+  if(a==='tab'){S.tab=t.getAttribute('data-t');grupo();}
+  else if(a==='nuevo'){nuevoGasto();}
+  else if(a==='gasto'){detalle(t.getAttribute('data-id'));}
+  else if(a==='cerrar'){cerrarSheet();}
+  else if(a==='invitar'){invitar();}
+  else if(a==='copiar'){
+    var ok=false;try{navigator.clipboard.writeText(S.link).then(function(){toast('Link copiado');},function(){toast('Copia el link de abajo');});ok=true;}catch(err){}
+    if(!ok)toast('Copia el link de abajo');
+  }
+  else if(a==='yo'){preguntarYo();}
+  else if(a==='soyyo'){S.me=t.getAttribute('data-id');ls('viaje.me.'+S.code,S.me);cerrarSheet();grupo();}
+  else if(a==='soloveo'){ls('viaje.me.skip.'+S.code,'1');cerrarSheet();}
+  else if(a==='salir'){ls('viaje.code',null);try{history.replaceState(null,'',location.pathname);}catch(err){}home();}
+  else if(a==='cat'){F.cat=t.getAttribute('data-c');[].slice.call(document.querySelectorAll('#fc .chip')).forEach(function(c){c.classList.toggle('on',c.getAttribute('data-c')===F.cat);});}
+  else if(a==='modo'){F.modo=t.getAttribute('data-m');[].slice.call(document.querySelectorAll('#fmode button')).forEach(function(c){c.classList.toggle('on',c.getAttribute('data-m')===F.modo);});dibujarSplit();upd();}
+  else if(a==='sel'){var id=t.getAttribute('data-id');F.sel[id]=!F.sel[id];t.classList.toggle('on',F.sel[id]);upd();}
+  else if(a==='guardar'){guardar();}
+  else if(a==='borrar'){
+    var gid=t.getAttribute('data-id');
+    if(armado.b!==gid){armado.b=gid;t.textContent='¿Seguro? Toca otra vez para borrar';return;}
+    armado.b=null;t.disabled=true;
+    rpc('viaje_borrar_gasto',{p_codigo:S.code,p_id:gid}).then(function(){cerrarSheet();toast('Gasto borrado');S.raw='';return refrescar();}).catch(function(er){t.disabled=false;toast(er.message);});
+  }
+  else if(a==='pagado'){
+    var d=S.data,sug=liquidar(calc(d)),s=sug[parseInt(t.getAttribute('data-i'),10)];if(!s)return;
+    var key='p'+t.getAttribute('data-i')+s.de+s.para+s.monto;
+    if(armado.p!==key){armado.p=key;t.textContent='¿Seguro?';return;}
+    armado.p=null;t.disabled=true;
+    rpc('viaje_agregar_pago',{p_codigo:S.code,p_de:s.de,p_para:s.para,p_monto:s.monto}).then(function(){toast('Pago registrado ✅');S.raw='';return refrescar();}).catch(function(er){t.disabled=false;toast(er.message);});
+  }
+  else if(a==='borrarpago'){
+    var pid=t.getAttribute('data-id');
+    if(armado.d!==pid){armado.d=pid;toast('Toca otra vez para borrar el pago');return;}
+    armado.d=null;
+    rpc('viaje_borrar_pago',{p_codigo:S.code,p_id:pid}).then(function(){S.raw='';return refrescar();}).catch(function(er){toast(er.message);});
+  }
+  else if(a==='addm'){
+    var inp=document.getElementById('nuevom'),n=inp.value.trim();if(!n)return toast('Escribe el nombre');
+    rpc('viaje_agregar_miembro',{p_codigo:S.code,p_nombre:n}).then(function(){S.raw='';S.tab='saldos';toast('Agregada ✅');return refrescar();}).catch(function(er){toast(er.message.indexOf('duplicate')>=0?'Ya hay alguien con ese nombre':er.message);});
+  }
+});
+
+/* actualizar solo cada 6 s para ver lo que anotan las demás */
+setInterval(function(){if(S.code&&!document.hidden)refrescar().catch(function(){});},6000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&S.code)refrescar().catch(function(){});});
+
+/* ---------- inicio ---------- */
+var code=((location.hash||'').slice(1)||ls('viaje.code')||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+if(code)abrir(code);else home();
+})();
+</script>
+</body>
+</html>
