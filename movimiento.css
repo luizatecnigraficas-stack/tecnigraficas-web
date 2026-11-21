@@ -2,7 +2,7 @@
    sellos, barra CMYK de avance y tarjetas que se inclinan. Todo se apaga con "reducir movimiento". */
 
 /* Don Fer saludando (imagen cuadrada) */
-.donfer-hero{height:300px;right:-6%;top:-34px}
+.donfer-hero{height:300px;right:-6%;top:-34px;z-index:5!important;filter:drop-shadow(0 10px 16px rgba(0,0,0,.18))}
 @media (max-width:760px){.donfer-hero{height:205px;right:-4%;top:-26px}}
 
 /* Don Fer diseñando en "Cómo funciona" y el que se asoma en el cierre */

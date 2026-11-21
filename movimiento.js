@@ -97,7 +97,7 @@
 
   // ----- parallax suave del hero -----
   const art=document.querySelector(".hero-art");
-  const layers=art?[[".f1",-.06],[".f2",.05],[".f3",-.1],[".donfer-hero",.12],[".bg",.03]].map(([s,k])=>[art.querySelector(s),k]).filter(x=>x[0]):[];
+  const layers=art?[[".f1",-.06],[".f2",.05],[".f3",-.1],[".donfer-hero",-.08],[".bg",.03]].map(([s,k])=>[art.querySelector(s),k]).filter(x=>x[0]):[];
   function parallax(){
     if(!layers.length||scrollY>1200)return;
     layers.forEach(([el,k])=>{el.style.translate=`0 ${(scrollY*k).toFixed(1)}px`});
