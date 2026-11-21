@@ -1,0 +1,35 @@
+/* Navidad sutil (se activa sola del 15 de noviembre al 6 de enero; ver navidad.js) */
+
+/* ----- Luces CMYK bajo el menú ----- */
+.navidad .nav{position:sticky}
+.luces{position:absolute;left:0;right:0;bottom:-13px;height:20px;pointer-events:none;z-index:1;overflow:visible}
+.luces svg{display:block;width:100%;height:20px;overflow:visible}
+.luces .foco{transform-box:fill-box;transform-origin:50% 0;animation:titila 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes titila{0%,100%{opacity:1;filter:drop-shadow(0 0 3px var(--g))}50%{opacity:.45;filter:none}}
+
+/* ----- Nieve de tinta en la portada ----- */
+.navidad .hero{position:relative}
+.navidad .hero>.hero-copy,.navidad .hero>.hero-art{position:relative;z-index:1}
+.nieve{position:absolute;inset:-30px -24px 0;overflow:hidden;pointer-events:none;z-index:0}
+.nieve i{position:absolute;top:-14px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:var(--c);opacity:var(--o,.55);
+  animation:cae var(--t) linear var(--d) infinite}
+.nieve i.b{background:#fff;box-shadow:0 0 0 1.5px #d6dde3}
+@keyframes cae{0%{transform:translate(0,0)}25%{transform:translate(14px,25vh)}50%{transform:translate(-10px,50vh)}75%{transform:translate(12px,75vh)}100%{transform:translate(0,105vh)}}
+
+/* ----- Gorrito en las gotas CMYK ----- */
+svg.gota-navidad{overflow:visible}
+
+/* ----- Franja de regalos ----- */
+.regalos{padding:10px 0 90px}
+.reg-head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:38px}
+.reg-head .lead{text-align:center}
+.reg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.reg-grid .tile{text-decoration:none;color:inherit;min-height:190px}
+.reg-grid .tile .ico{font-size:34px;line-height:1;display:block;margin-bottom:10px}
+.reg-sello{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:var(--borde);border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.05em;background:#fff}
+.reg-sello i{width:10px;height:10px;border-radius:50%;background:#E3242B;display:block;box-shadow:14px 0 0 #2E8B57}
+.reg-sello i{margin-right:14px}
+@media (max-width:1000px){.reg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.regalos{padding-bottom:60px}.reg-grid{gap:14px}.reg-grid .tile{min-height:150px}.reg-grid .tile .ico{font-size:28px;margin-bottom:6px}}
+
+@media (prefers-reduced-motion:reduce){.luces .foco,.nieve i{animation:none}.nieve{display:none}}
