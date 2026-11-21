@@ -7,6 +7,10 @@
 .luces .foco{transform-box:fill-box;transform-origin:50% 0;animation:titila 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
 @keyframes titila{0%,100%{opacity:1;filter:drop-shadow(0 0 3px var(--g))}50%{opacity:.45;filter:none}}
 
+.luces.arriba{top:-2px;bottom:auto;z-index:2}
+.navidad header.top .top-in{position:relative;z-index:1}
+.navidad header.top{padding-top:34px}
+
 /* ----- Nieve de tinta en la portada ----- */
 .navidad .hero{position:relative}
 .navidad .hero>.hero-copy,.navidad .hero>.hero-art{position:relative;z-index:1}

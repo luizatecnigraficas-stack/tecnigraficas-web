@@ -12,14 +12,14 @@
   document.documentElement.classList.add("navidad");
 
   // ----- Don Fer navideño en la portada -----
-  const don=document.querySelector(".donfer-hero");
-  if(don){don.src="donfer-navidad.webp";don.width=369;don.height=362}
+  document.querySelectorAll(".donfer-hero,.top .donfer").forEach(don=>{don.src="donfer-navidad.webp";don.width=369;don.height=362;don.alt="Don Fer con gorro de Navidad, saludando"});
+  const isLinks=!!document.querySelector(".top .top-in");
 
   // ----- Luces CMYK bajo el menú -----
-  const nav=document.querySelector(".nav");
+  const nav=document.querySelector(".nav")||document.querySelector("header.top");
   if(nav){
-    const box=document.createElement("div");box.className="luces";box.setAttribute("aria-hidden","true");nav.appendChild(box);
-    const COL=[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFE600","rgba(255,220,0,.9)"]];
+    const box=document.createElement("div");box.className="luces"+(isLinks?" arriba":"");box.setAttribute("aria-hidden","true");nav.appendChild(box);
+    const COL=isLinks?[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFFFFF","rgba(255,255,255,.95)"]]:[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFE600","rgba(255,220,0,.9)"]];
     const draw=()=>{
       const w=nav.clientWidth,step=w<640?34:46,n=Math.ceil(w/step)+1;
       let path=`M0 2`,foc="";
@@ -32,7 +32,7 @@
   }
 
   // ----- Nieve de tinta (solo en la portada) -----
-  const hero=document.querySelector(".hero");
+  const hero=document.querySelector(".hero")||document.querySelector("header.top");
   if(hero&&!RM){
     const sn=document.createElement("div");sn.className="nieve";sn.setAttribute("aria-hidden","true");
     const cols=["var(--cian)","var(--magenta)","var(--amarillo)","b","b"];
@@ -58,6 +58,14 @@
   }
   gorros();
   new MutationObserver(gorros).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});
+
+  // ----- Página de links: tarjeta de regalos -----
+  const mainLink=document.querySelector("main>.link.main");
+  if(mainLink&&!document.getElementById("linkRegalos")){
+    const a=document.createElement("a");a.className="link m";a.id="linkRegalos";a.href="/#regalos";
+    a.innerHTML=`<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/><path d="M12 8c-2-4-6-4-6-1.5S10 8 12 8zM12 8c2-4 6-4 6-1.5S14 8 12 8z"/></svg></span><span class="copy"><strong>Regalos para diciembre 🎄</strong><span>Agendas ${year+1}, cajas de regalo y personalizados</span></span><span class="arrow" aria-hidden="true">›</span>`;
+    mainLink.after(a);
+  }
 
   // ----- Franja "Regala algo hecho aquí" (después de las categorías) -----
   const cats=document.getElementById("categorias");
