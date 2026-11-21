@@ -10,6 +10,13 @@
 .cta-asoma img{height:230px;bottom:-18px}
 @media (max-width:760px){.cta-asoma img{height:170px;bottom:-12px}}
 
+/* nada se sale de lado (evita que la página se mueva de lado en celular) */
+html,body{overflow-x:clip}
+
+/* titular: "Fe, familia" arriba y "y full color." juntos abajo */
+.hero-h1{font-size:clamp(38px,5.4vw,80px)}
+.hero-h1 .l2{white-space:nowrap}
+
 /* "full color" con cada letra de un color CMYK */
 .full{white-space:nowrap}
 .full .lt{display:inline-block;color:var(--lc,var(--negro));transition:transform .25s cubic-bezier(.3,1.8,.5,1)}

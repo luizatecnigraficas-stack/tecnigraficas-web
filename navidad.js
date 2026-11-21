@@ -31,7 +31,7 @@
     draw();let t;addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(draw,200)});
   }
 
-  // ----- Nieve de tinta (solo en la portada) -----
+  // ----- Nieve de tinta (cae por toda la pantalla mientras navegan) -----
   const hero=document.querySelector(".hero")||document.querySelector("header.top");
   if(hero&&!RM){
     const sn=document.createElement("div");sn.className="nieve";sn.setAttribute("aria-hidden","true");
@@ -39,7 +39,7 @@
     const n=innerWidth<640?14:24;let h="";
     for(let i=0;i<n;i++){const c=cols[i%cols.length],s=(4+Math.random()*6).toFixed(1);
       h+=`<i class="${c==="b"?"b":""}" style="--x:${(Math.random()*100).toFixed(1)}%;--s:${s}px;--c:${c};--t:${(10+Math.random()*9).toFixed(1)}s;--d:-${(Math.random()*18).toFixed(1)}s;--o:${(0.35+Math.random()*0.35).toFixed(2)}"></i>`}
-    sn.innerHTML=h;hero.prepend(sn);
+    sn.innerHTML=h;document.body.appendChild(sn);
   }
 
   // ----- Mensajes navideños en la cinta -----

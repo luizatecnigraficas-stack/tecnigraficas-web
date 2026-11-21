@@ -30,7 +30,7 @@
   const h1=document.querySelector(".hero h1");
   if(h1){
     let i=0;
-    [...h1.childNodes].forEach(n=>{
+    const walk=n=>{
       if(n.nodeType===3){
         const frag=document.createDocumentFragment();
         n.textContent.split(/(\s+)/).forEach(part=>{
@@ -38,9 +38,11 @@
           if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return}
           const w=document.createElement("span");w.className="w";w.style.setProperty("--i",i++);w.textContent=part;frag.appendChild(w);
         });
-        h1.replaceChild(frag,n);
+        n.parentNode.replaceChild(frag,n);
       }else if(n.nodeType===1&&n.classList.contains("full")){n.style.setProperty("--i",i++)}
-    });
+      else if(n.nodeType===1&&n.classList.contains("l2")){[...n.childNodes].forEach(walk)}
+    };
+    [...h1.childNodes].forEach(walk);
   }
 
   // ----- 26 años que cuentan -----

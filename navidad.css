@@ -3,7 +3,7 @@
 /* ----- Luces CMYK bajo el menú ----- */
 .navidad .nav{position:sticky}
 .luces{position:absolute;left:0;right:0;bottom:-13px;height:20px;pointer-events:none;z-index:1;overflow:visible}
-.luces svg{display:block;width:100%;height:20px;overflow:visible}
+.luces svg{display:block;width:100%;height:20px;overflow:hidden}
 .luces .foco{transform-box:fill-box;transform-origin:50% 0;animation:titila 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
 @keyframes titila{0%,100%{opacity:1;filter:drop-shadow(0 0 3px var(--g))}50%{opacity:.45;filter:none}}
 
@@ -14,7 +14,7 @@
 /* ----- Nieve de tinta en la portada ----- */
 .navidad .hero{position:relative}
 .navidad .hero>.hero-copy,.navidad .hero>.hero-art{position:relative;z-index:1}
-.nieve{position:absolute;inset:-30px -24px 0;overflow:hidden;pointer-events:none;z-index:0}
+.nieve{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:30}
 .nieve i{position:absolute;top:-14px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:var(--c);opacity:var(--o,.55);
   animation:cae var(--t) linear var(--d) infinite}
 .nieve i.b{background:#fff;box-shadow:0 0 0 1.5px #d6dde3}
