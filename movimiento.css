@@ -18,9 +18,9 @@ html,body{overflow-x:clip}
 .hero-h1 .l2{white-space:nowrap}
 
 /* "full color" con cada letra de un color CMYK */
-.full{white-space:nowrap}
-.full .lt{display:inline-block;color:var(--lc,var(--negro));transition:transform .25s cubic-bezier(.3,1.8,.5,1)}
-.full:hover .lt{transform:translateY(-6px) rotate(var(--lr,0deg))}
+.mark.full{white-space:nowrap}
+.mark.full .lt{display:inline-block;color:var(--lc,var(--negro));transition:transform .25s cubic-bezier(.3,1.8,.5,1)}
+.mark.full:hover .lt{transform:translateY(-6px) rotate(var(--lr,0deg))}
 
 /* barra CMYK de avance */
 .mv-bar{position:fixed;left:0;top:0;height:5px;width:100%;z-index:200;transform-origin:0 50%;transform:scaleX(0);pointer-events:none;
@@ -30,8 +30,8 @@ html,body{overflow-x:clip}
   /* ===== Entrada del hero ===== */
   .mv .hero .chip{animation:mvSlide .7s cubic-bezier(.2,.8,.2,1) .05s backwards}
   .mv .hero h1 .w{display:inline-block;animation:mvWord .8s cubic-bezier(.2,.9,.25,1.15) backwards;animation-delay:calc(var(--i) * 110ms + .2s)}
-  .mv .hero h1 .full{animation:mvStamp .7s cubic-bezier(.3,1.6,.45,1) backwards;animation-delay:calc(var(--i) * 110ms + .2s)}
-  .mv .hero h1 .full .lt{animation:mvLetter .6s cubic-bezier(.3,1.8,.5,1) backwards;animation-delay:calc(var(--j) * 45ms + .9s)}
+  .mv .hero h1 .mark.full{animation:mvStamp .7s cubic-bezier(.3,1.6,.45,1) backwards;animation-delay:calc(var(--i) * 110ms + .2s)}
+  .mv .hero h1 .mark.full .lt{animation:mvLetter .6s cubic-bezier(.3,1.8,.5,1) backwards;animation-delay:calc(var(--j) * 45ms + .9s)}
   .mv .hero .lead{animation:mvFade .8s ease-out 1.05s backwards}
   .mv .hero .row>*{animation:mvPop .6s cubic-bezier(.3,1.6,.5,1) backwards}
   .mv .hero .row>*:nth-child(1){animation-delay:1.2s}.mv .hero .row>*:nth-child(2){animation-delay:1.32s}

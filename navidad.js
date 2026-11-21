@@ -57,7 +57,7 @@
     document.querySelectorAll('svg[viewBox="-5 -2 110 114"]:not(.gota-navidad)').forEach(s=>{s.classList.add("gota-navidad");s.insertAdjacentHTML("beforeend",HAT)});
   }
   gorros();
-  new MutationObserver(gorros).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});
+  new MutationObserver(gorros).observe(document.body,{childList:true,subtree:true});
 
 
   // ----- Música navideña: cajita musical de "Noche de paz" (Franz Gruber, 1818, dominio público) -----

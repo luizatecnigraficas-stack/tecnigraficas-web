@@ -5,7 +5,7 @@
 
   // ----- "full color": cada letra de un color CMYK (también sin animación) -----
   const COLS=["var(--cian)","var(--magenta)","var(--negro)"];
-  document.querySelectorAll(".full").forEach(el=>{
+  document.querySelectorAll(".mark.full").forEach(el=>{
     let j=0;
     el.innerHTML=[...el.textContent].map(ch=>ch===" "?" ":`<span class="lt" style="--lc:${COLS[j%3]};--j:${j};--lr:${(j++%2?6:-6)}deg">${ch}</span>`).join("");
   });
