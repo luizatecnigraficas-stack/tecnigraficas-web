@@ -53,7 +53,7 @@
   // ----- aparición al hacer scroll -----
   const SEL=[".sellos .sello",".cats-head>*",".cats-grid>.tile",".sec .h-l",".eyebrow",".lead:not(.hero .lead)",
     ".bloque",".cuaderno",".refgrid>.ref",".paso",".familia>.miembro",".historia .wrap>*>*",".parati>*",".infos>*",
-    "#grid>.card",".cta",".cita","footer .wrap>*",".gotas>*",".cu-card",".lineas>*",".nota"].join(",");
+    "#grid>.card",".cta",".cita",".don-disena","footer .wrap>*",".gotas>*",".cu-card",".lineas>*",".nota"].join(",");
   const io=new IntersectionObserver(es=>es.forEach(e=>{
     if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);
     el.classList.add("mv-in");
