@@ -237,6 +237,33 @@ textarea{resize:vertical}
 .item .rm{width:44px;height:44px;border-radius:50%;border:2px solid var(--negro);background:#fff;cursor:pointer;font-weight:900}
 .drawer-foot{padding:18px 24px;border-top:var(--borde);display:flex;flex-direction:column;gap:12px}
 .form2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* Mi solicitud liviana */
+.drawer-head{padding:18px 22px;border-bottom:1px solid #ECECE7}
+.drawer-head h2{font-size:22px;display:flex;align-items:baseline;gap:10px}
+.drawer-head h2 small{font-family:var(--body);font-weight:700;font-size:13px;text-transform:none;color:#fff;background:var(--magenta);border-radius:999px;padding:3px 10px}
+.drawer-body{padding:16px 18px;gap:10px;background:#FAFAF7}
+.drawer .item{grid-template-columns:56px 1fr 30px;gap:12px;align-items:start;border:0;border-radius:18px;padding:12px;background:#fff;box-shadow:0 1px 0 #ECECE7,0 4px 14px rgba(26,26,26,.05)}
+.drawer .item img,.drawer .item .mini{width:56px;height:56px;border-radius:14px;border:0}
+.drawer .item .mini{background:linear-gradient(135deg,#DDF4FD,#FDE1F0 55%,#FFFBC4)}
+.drawer .item strong{font-size:14.5px;line-height:1.2;display:block}
+.it-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.it-qty{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#6B6B66}
+.drawer .it-qty input{width:120px;min-height:36px;padding:6px 12px;border:1.5px solid #E2E2DC;border-radius:999px;font:500 14px var(--body);background:#FAFAF7}
+.drawer .it-det{width:100%;min-height:60px;padding:10px 12px;border:1.5px solid #E2E2DC;border-radius:12px;font:400 14px var(--body);background:#FAFAF7;resize:vertical}
+.drawer .it-qty input:focus,.drawer .it-det:focus,.drawer-foot input:focus,.drawer-foot textarea:focus{outline:none;border-color:var(--magenta);background:#fff;box-shadow:0 0 0 3px rgba(236,0,140,.12)}
+.it-more{align-self:flex-start;border:0;background:none;padding:2px 0;color:#C4007A;font:700 13px var(--body);cursor:pointer;text-align:left}
+.it-more:hover{text-decoration:underline}
+.drawer .item .rm{width:30px;height:30px;border:0;background:#F1F1EC;color:#6B6B66;font-size:16px;line-height:1}
+.drawer .item .rm:hover{background:#FDE1F0;color:#C4007A}
+.drawer-foot{padding:16px 18px 18px;border-top:1px solid #ECECE7;gap:12px;box-shadow:0 -8px 20px rgba(26,26,26,.04)}
+.drawer-foot label{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:700;color:#6B6B66}
+.drawer-foot input,.drawer-foot textarea{width:100%;min-height:42px;padding:9px 13px;border:1.5px solid #E2E2DC;border-radius:12px;font:500 15px var(--body);background:#FAFAF7;color:var(--texto)}
+.drawer-foot .it-more.full{grid-column:1/-1}
+.drawer .it-qty{flex-direction:row;justify-content:flex-start;align-items:center;text-align:left}
+.drawer .it-body .it-det{display:block}
+.drawer .it-body .it-det.hidden{display:none}
+/* con la solicitud abierta se esconden los botones flotantes */
+body:has(#drawer:not(.hidden)) .dfw-fab,body:has(#drawer:not(.hidden)) .dfw-bub,body:has(#drawer:not(.hidden)) .musica,body:has(#drawer:not(.hidden)) .musica-tip{opacity:0;pointer-events:none}
 .form2 .full{grid-column:1/-1}
 .toast{opacity:0;pointer-events:none;position:fixed;left:50%;bottom:24px;z-index:100;transform:translate(-50%,140%);background:var(--negro);color:#fff;padding:14px 22px;border-radius:999px;font-weight:700;transition:transform .25s ease;max-width:calc(100vw - 32px)}
 .toast.show{transform:translate(-50%,0);opacity:1}
@@ -611,10 +638,13 @@ section[id],article[id]{scroll-margin-top:84px}
   <div class="drawer-body" id="cartList"></div>
   <div class="drawer-foot">
     <div class="form2">
-      <label class="full">Tu nombre *<input id="cName" autocomplete="name"></label>
-      <label>Empresa<input id="cCompany" autocomplete="organization"></label>
-      <label>Celular<input id="cPhone" inputmode="tel" autocomplete="tel"></label>
-      <label class="full">Observaciones<textarea id="cNotes" rows="2" placeholder="Fecha de entrega, ciudad, ideas…"></textarea></label>
+      <label>Tu nombre *<input id="cName" autocomplete="name" placeholder="¿Cómo te llamas?"></label>
+      <label>Celular<input id="cPhone" inputmode="tel" autocomplete="tel" placeholder="300 123 4567"></label>
+      <button type="button" class="it-more full" id="cMoreBtn">+ Más datos (empresa, fecha, ideas)</button>
+      <div class="full form2 hidden" id="cMore" style="grid-template-columns:1fr">
+        <label>Empresa<input id="cCompany" autocomplete="organization" placeholder="Opcional"></label>
+        <label>Observaciones<textarea id="cNotes" rows="2" placeholder="Fecha de entrega, ciudad, ideas…"></textarea></label>
+      </div>
     </div>
     <button class="btn big" type="button" id="sendRequest">Enviar por WhatsApp</button>
   </div>
@@ -680,7 +710,7 @@ function closeDetail(){if($("detailBackdrop").classList.contains("hidden"))retur
 function renderCount(){$$("[data-cart-count]").forEach(e=>e.textContent=state.cart.length);$("floatCart").classList.toggle("hidden",!state.cart.length)}
 function addProduct(id){const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;const had=state.cart.some(x=>String(x.id)===String(id));if(!had)state.cart.push({id:p.id,name:p.name,image:p.image||null,quantity:"",details:""});saveCart();toast(had?"Ya estaba en tu solicitud":"¡Agregado a tu solicitud!")}
 function addCustom(name){const id="ref:"+name;const had=state.cart.some(x=>x.id===id);if(!had)state.cart.push({id,name,image:null,quantity:"",details:""});saveCart();toast(had?"Ya estaba en tu solicitud":"¡Agregado a tu solicitud!")}
-function renderCart(){$("cartList").innerHTML=state.cart.length?state.cart.map((x,i)=>`<div class="item">${x.image?`<img src="${esc(x.image)}" alt="">`:`<div class="mini"></div>`}<div style="display:flex;flex-direction:column;gap:8px"><strong>${esc(x.name)}</strong><label>Cantidad<input data-i="${i}" data-k="quantity" value="${esc(x.quantity)}" placeholder="Ej. 100 unidades"></label><label>Detalles<textarea data-i="${i}" data-k="details" rows="2" placeholder="Medidas, colores, acabado…">${esc(x.details)}</textarea></label></div><button class="rm" type="button" data-rm="${i}" aria-label="Quitar ${esc(x.name)}">×</button></div>`).join(""):`<div class="empty" style="border-radius:22px">${gota("#FFF200","feliz",70,true)}<strong>Tu solicitud está vacía.</strong><span>Agrega productos del catálogo con “+ Cotizar”.</span></div>`;$("sendRequest").disabled=!state.cart.length}
+function renderCart(){$("cartList").innerHTML=state.cart.length?state.cart.map((x,i)=>`<div class="item">${x.image?`<img src="${esc(x.image)}" alt="">`:`<div class="mini"></div>`}<div class="it-body"><strong>${esc(x.name)}</strong><label class="it-qty"><span>Cantidad</span><input data-i="${i}" data-k="quantity" value="${esc(x.quantity)}" placeholder="Ej. 100" inputmode="text"></label>${x.details?"":`<button type="button" class="it-more" data-more="${i}">+ Agregar detalles</button>`}<textarea class="it-det${x.details?"":" hidden"}" id="det${i}" data-i="${i}" data-k="details" rows="2" placeholder="Medidas, colores, acabado…">${esc(x.details)}</textarea></div><button class="rm" type="button" data-rm="${i}" aria-label="Quitar ${esc(x.name)}">×</button></div>`).join(""):`<div class="empty" style="border-radius:22px">${gota("#FFF200","feliz",70,true)}<strong>Tu solicitud está vacía.</strong><span>Agrega productos del catálogo con “+ Cotizar”.</span></div>`;$("sendRequest").disabled=!state.cart.length;const n=state.cart.length;$("drawerTitle").innerHTML=`Mi solicitud${n?` <small>${n} ${n===1?"producto":"productos"}</small>`:""}`}
 function openCart(){renderCart();$("drawer").classList.remove("hidden");$("cartBackdrop").classList.remove("hidden");document.body.style.overflow="hidden";$("drawerClose").focus()}
 function closeCart(){$("drawer").classList.add("hidden");$("cartBackdrop").classList.add("hidden");document.body.style.overflow=""}
 function waNumber(){let n=String(state.business.whatsapp||state.business.phone||"").replace(/\D/g,"");if(n.length===10&&n.startsWith("3"))n="57"+n;return n||"573122526244"}
@@ -710,6 +740,8 @@ function bind(){
  $("drawerClose").addEventListener("click",closeCart);$("cartBackdrop").addEventListener("click",closeCart);
  $("cartList").addEventListener("input",e=>{const i=Number(e.target.dataset.i),k=e.target.dataset.k;if(Number.isInteger(i)&&k&&state.cart[i]){state.cart[i][k]=e.target.value;saveCart()}});
  $("sendRequest").addEventListener("click",sendRequest);
+ document.addEventListener("click",e=>{const b=e.target.closest("[data-more]");if(b){const t=$("det"+b.dataset.more);if(t){t.classList.remove("hidden");b.remove();t.focus()}}});
+ $("cMoreBtn").addEventListener("click",()=>{$("cMore").classList.remove("hidden");$("cMoreBtn").remove();$("cCompany").focus()});
 }
 
 document.addEventListener("click",e=>{const t=e.target.closest("[data-catname]");if(t)irCat(t)});
