@@ -97,16 +97,16 @@
     function play(){
       if(!ctx)setup();ctx.resume();playing=true;
       master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setValueAtTime(master.gain.value,ctx.currentTime);master.gain.linearRampToValueAtTime(.16,ctx.currentTime+1.2);
-      if(!loopT)loop();btn.classList.add("on");btn.setAttribute("aria-pressed","true");btn.setAttribute("aria-label","Apagar la música navideña");hideTip();
+      if(!loopT)loop();btn.classList.add("on");btn.querySelector(".txt").textContent="Apagar música";btn.setAttribute("aria-pressed","true");btn.setAttribute("aria-label","Apagar la música navideña");hideTip();
     }
     function stop(){
-      playing=false;btn.classList.remove("on");btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Poner música navideña");
+      playing=false;btn.classList.remove("on");btn.querySelector(".txt").textContent="Música navideña";btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Poner música navideña");
       if(!ctx)return;const now=ctx.currentTime;master.gain.cancelScheduledValues(now);master.gain.setValueAtTime(master.gain.value,now);master.gain.linearRampToValueAtTime(0,now+.6);
       clearTimeout(loopT);loopT=null;setTimeout(()=>{if(!playing)ctx.suspend()},700);
     }
     const btn=document.createElement("button");btn.type="button";btn.className="musica";btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Poner música navideña");
-    btn.innerHTML=`<svg class="nota" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="#EC008C"/><circle cx="17" cy="16" r="3" fill="#00AEEF"/></svg><span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>`;
-    const tip=document.createElement("div");tip.className="musica-tip";tip.textContent="¿Música navideña? 🎄";
+    btn.innerHTML=`<svg class="nota" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="#EC008C"/><circle cx="17" cy="16" r="3" fill="#00AEEF"/></svg><span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span><span class="txt">Música navideña</span>`;
+    const tip=document.createElement("div");tip.className="musica-tip";tip.textContent="¿Le ponemos música? 🎄";
     document.body.append(btn,tip);
     btn.addEventListener("click",()=>playing?stop():play());
     tip.addEventListener("click",()=>play());
