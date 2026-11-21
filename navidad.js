@@ -59,6 +59,62 @@
   gorros();
   new MutationObserver(gorros).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});
 
+
+  // ----- Música navideña: cajita musical de "Noche de paz" (Franz Gruber, 1818, dominio público) -----
+  // Se genera en el navegador (Web Audio): no hay archivo de audio ni derechos. Solo suena si el cliente toca el botón.
+  (function musica(){
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    const N=n=>440*Math.pow(2,(n-69)/12);
+    const C4=60,D4=62,E4=64,F4=65,G4=67,A4=69,B4=71,C5=72,D5=74,E5=76,F5=77;
+    // [nota, duración en negras]
+    const MEL=[[G4,1.5],[A4,.5],[G4,1],[E4,3],[G4,1.5],[A4,.5],[G4,1],[E4,3],[D5,2],[D5,1],[B4,3],[C5,2],[C5,1],[G4,3],
+      [A4,2],[A4,1],[C5,1.5],[B4,.5],[A4,1],[G4,1.5],[A4,.5],[G4,1],[E4,3],[A4,2],[A4,1],[C5,1.5],[B4,.5],[A4,1],[G4,1.5],[A4,.5],[G4,1],[E4,3],
+      [D5,2],[D5,1],[F5,1.5],[D5,.5],[B4,1],[C5,3],[E5,3],[C5,1],[G4,1],[E4,1],[G4,1.5],[F4,.5],[D4,1],[C4,6]];
+    const CH={C:[48,55,64],G:[43,55,62],F:[41,57,60]};
+    const BARS="CCCCGGCCFFCCFFCCGGCCCGCC".split(""); // 24 compases de 3/4
+    const BEAT=.62;
+    let ctx,master,wet,playing=false,loopT,startAt=0;
+    function setup(){
+      ctx=new AC();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+      // eco suave (sala)
+      const len=ctx.sampleRate*2.2,ir=ctx.createBuffer(2,len,ctx.sampleRate);
+      for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}
+      const conv=ctx.createConvolver();conv.buffer=ir;wet=ctx.createGain();wet.gain.value=.32;conv.connect(wet);wet.connect(master);
+      master._dry=ctx.createGain();master._dry.gain.value=.8;master._dry.connect(master);master._conv=conv;
+    }
+    function tine(t,midi,vol,dur){
+      const f=N(midi);[[1,1],[4.02,.14],[8.1,.04]].forEach(([k,a])=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.value=f*k;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol*a,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+Math.min(dur,2.4)/(k>1?3:1)+.25);
+        o.connect(g);g.connect(master._dry);g.connect(master._conv);o.start(t);o.stop(t+2.8)});
+    }
+    function schedule(t0){
+      let t=t0;MEL.forEach(([n,d])=>{tine(t,n,.5,d*BEAT+.6);t+=d*BEAT});
+      BARS.forEach((ch,i)=>{const bt=t0+i*3*BEAT,[r,a,b]=CH[ch];tine(bt,r,.28,3*BEAT);tine(bt+BEAT,a,.13,BEAT);tine(bt+2*BEAT,b,.11,BEAT)});
+      return t-t0;
+    }
+    function loop(){const len=schedule(ctx.currentTime+.08);loopT=setTimeout(()=>{if(playing)loop()},(len+2.2)*1000)}
+    function play(){
+      if(!ctx)setup();ctx.resume();playing=true;
+      master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setValueAtTime(master.gain.value,ctx.currentTime);master.gain.linearRampToValueAtTime(.16,ctx.currentTime+1.2);
+      if(!loopT)loop();btn.classList.add("on");btn.setAttribute("aria-pressed","true");btn.setAttribute("aria-label","Apagar la música navideña");hideTip();
+    }
+    function stop(){
+      playing=false;btn.classList.remove("on");btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Poner música navideña");
+      if(!ctx)return;const now=ctx.currentTime;master.gain.cancelScheduledValues(now);master.gain.setValueAtTime(master.gain.value,now);master.gain.linearRampToValueAtTime(0,now+.6);
+      clearTimeout(loopT);loopT=null;setTimeout(()=>{if(!playing)ctx.suspend()},700);
+    }
+    const btn=document.createElement("button");btn.type="button";btn.className="musica";btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Poner música navideña");
+    btn.innerHTML=`<svg class="nota" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="#EC008C"/><circle cx="17" cy="16" r="3" fill="#00AEEF"/></svg><span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>`;
+    const tip=document.createElement("div");tip.className="musica-tip";tip.textContent="¿Música navideña? 🎄";
+    document.body.append(btn,tip);
+    btn.addEventListener("click",()=>playing?stop():play());
+    tip.addEventListener("click",()=>play());
+    function hideTip(){tip.classList.remove("on")}
+    try{if(!sessionStorage.getItem("tcMusicaTip")){setTimeout(()=>{if(!playing){tip.classList.add("on");sessionStorage.setItem("tcMusicaTip","1");setTimeout(hideTip,6000)}},3500)}}catch(_){}
+    document.addEventListener("visibilitychange",()=>{if(!ctx)return;if(document.hidden)ctx.suspend();else if(playing)ctx.resume()});
+  })();
+
   // ----- Página de links: tarjeta de regalos -----
   const mainLink=document.querySelector("main>.link.main");
   if(mainLink&&!document.getElementById("linkRegalos")){
