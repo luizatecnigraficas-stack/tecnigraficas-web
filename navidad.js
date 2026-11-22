@@ -19,7 +19,7 @@
   const nav=document.querySelector(".nav")||document.querySelector("header.top");
   if(nav){
     const box=document.createElement("div");box.className="luces"+(isLinks?" arriba":"");box.setAttribute("aria-hidden","true");nav.appendChild(box);
-    const COL=isLinks?[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFFFFF","rgba(255,255,255,.95)"]]:[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFE600","rgba(255,220,0,.9)"]];
+    const COL=isLinks?[["#00AEEF","rgba(0,174,239,.9)"],["#FFF200","rgba(255,242,0,.95)"],["#FFFFFF","rgba(255,255,255,.95)"]]:[["#00AEEF","rgba(0,174,239,.9)"],["#EC008C","rgba(236,0,140,.9)"],["#FFE600","rgba(255,220,0,.9)"]];
     const draw=()=>{
       const w=nav.clientWidth,step=w<640?34:46,n=Math.ceil(w/step)+1;
       let path=`M0 2`,foc="";
