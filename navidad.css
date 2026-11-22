@@ -62,3 +62,15 @@ svg.gota-navidad{overflow:visible}
 /* si aparece el botón flotante "Mi solicitud", la música sube */
 body:has(#floatCart:not(.hidden)) .musica{bottom:84px}
 body:has(#floatCart:not(.hidden)) .musica-tip{bottom:146px}
+
+/* ----- Reproductor de YouTube (música decembrina) ----- */
+.yt-card{position:fixed;right:18px;bottom:84px;z-index:60;width:256px;background:#fff;border:2.5px solid #1A1A1A;border-radius:18px;overflow:hidden;box-shadow:4px 4px 0 #EC008C;
+  transform:translateY(calc(100% + 120px));opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.3,1.3,.5,1),opacity .3s}
+.yt-card.on{transform:none;opacity:1;pointer-events:auto}
+.yt-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px 6px 12px;font:800 12.5px 'Poppins',system-ui,sans-serif;background:#FFF200;border-bottom:2px solid #1A1A1A}
+.yt-x{width:26px;height:26px;border-radius:50%;border:2px solid #1A1A1A;background:#fff;font-weight:900;cursor:pointer;line-height:1}
+.yt-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.yt-frame iframe,.yt-frame>div{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:640px){.yt-card{width:210px;right:12px;bottom:70px}}
+body:has(#floatCart:not(.hidden)) .yt-card{bottom:146px}
+body:has(#drawer:not(.hidden)) .yt-card{opacity:0;pointer-events:none}
