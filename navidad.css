@@ -78,8 +78,6 @@ body:has(#drawer:not(.hidden)) .yt-card{opacity:0;pointer-events:none}
 /* ----- "¡Tócame!": Don Fer pone la música ----- */
 .fer-toca{cursor:pointer;pointer-events:auto}
 .fer-toca:focus-visible{outline:3px solid #00AEEF;outline-offset:4px;border-radius:20px}
-.fer-salta{animation:ferSalta .6s cubic-bezier(.3,1.6,.5,1)!important}
-@keyframes ferSalta{0%{transform:none}35%{transform:translateY(-22px) rotate(-8deg) scale(1.06)}70%{transform:translateY(0) rotate(4deg)}100%{transform:none}}
 .toca-fer{position:absolute;z-index:6;transform:translate(-10%,-100%);white-space:nowrap;border:2.5px solid #1A1A1A;background:#fff;color:#1A1A1A;
   font:800 14px 'Poppins',system-ui,sans-serif;padding:7px 14px;border-radius:16px 16px 16px 4px;box-shadow:3px 3px 0 #FFF200;cursor:pointer;
   animation:tocaPulso 1.8s ease-in-out infinite;transition:opacity .3s}
@@ -88,4 +86,4 @@ body:has(#drawer:not(.hidden)) .yt-card{opacity:0;pointer-events:none}
 .toca-fer.hide,.top-in>.toca-fer.hide{opacity:0;pointer-events:none}
 @keyframes tocaPulso{0%,100%{transform:translate(-10%,-100%) scale(1)}50%{transform:translate(-10%,-100%) scale(1.08) rotate(-2deg)}}
 @media (max-width:640px){.toca-fer{font-size:12.5px;padding:6px 11px}}
-@media (prefers-reduced-motion:reduce){.toca-fer{animation:none}.fer-salta{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.toca-fer{animation:none}}

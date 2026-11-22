@@ -112,7 +112,8 @@
         bub.style.left=x+"px";bub.style.top=(r.top-h.top+r.height*0.14)+"px"};
       place();addEventListener("resize",place);if(don.complete)place();else don.addEventListener("load",place);
       setTimeout(place,1300);setTimeout(place,2600);
-      const go=e=>{e.stopPropagation();don.classList.remove("fer-salta");void don.offsetWidth;don.classList.add("fer-salta");
+      const go=e=>{e.stopPropagation();
+        if(!matchMedia("(prefers-reduced-motion:reduce)").matches&&don.animate){try{don.animate([{translate:"0 0",rotate:"0deg",scale:"1"},{translate:"0 -22px",rotate:"-8deg",scale:"1.06",offset:.35},{translate:"0 0",rotate:"4deg",scale:"1",offset:.7},{translate:"0 0",rotate:"0deg",scale:"1"}],{duration:600,easing:"cubic-bezier(.3,1.6,.5,1)"})}catch(_){}}
         try{navigator.vibrate&&navigator.vibrate(15)}catch(_){}
         if(!playing)play()};
       don.addEventListener("click",go);bub.addEventListener("click",go);
