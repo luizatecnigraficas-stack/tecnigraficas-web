@@ -12,7 +12,9 @@
   document.documentElement.classList.add("navidad");
 
   // ----- Don Fer navideño en la portada -----
-  document.querySelectorAll(".donfer-hero,.top .donfer").forEach(don=>{don.src="donfer-navidad.webp";don.width=369;don.height=362;don.alt="Don Fer con gorro de Navidad, saludando"});
+  document.querySelectorAll(".donfer-hero").forEach(don=>{don.src="donfer-navidad.webp";don.width=369;don.height=362;don.alt="Don Fer con gorro de Navidad, saludando"});
+  // en /links (fondo rosado) va Don Fer amarillo, como "El pájaro amarillo"
+  document.querySelectorAll(".top .donfer").forEach(don=>{don.src="donfer-amarillo.webp";don.width=362;don.height=362;don.alt="Don Fer amarillo con gorro de Navidad"});
   const isLinks=!!document.querySelector(".top .top-in");
 
   // ----- Luces CMYK bajo el menú -----
@@ -83,6 +85,7 @@
       btn.querySelector(".txt").textContent=playing?"Pausar música":"Música decembrina";
       btn.setAttribute("aria-label",playing?"Pausar la música decembrina":"Poner música decembrina");
       card.classList.toggle("on",playing);
+      document.querySelectorAll(".toca-fer").forEach(b=>b.classList.toggle("hide",playing||wantPlay));
     }
     function play(){
       wantPlay=true;tip.classList.remove("on");setOff(false);
@@ -96,6 +99,25 @@
     btn.addEventListener("click",e=>{e.stopPropagation();playing?pause(true):play()});
     card.querySelector(".yt-x").addEventListener("click",e=>{e.stopPropagation();pause(true)});
     tip.addEventListener("click",()=>play());
+
+    // "¡Tócame!": Don Fer arranca la música
+    const dons=[...document.querySelectorAll(".donfer-hero,.top .donfer")];
+    dons.forEach(don=>{
+      don.classList.add("fer-toca");don.setAttribute("role","button");don.setAttribute("tabindex","0");
+      don.setAttribute("aria-label","Toca a Don Fer para poner El pájaro amarillo");
+      const bub=document.createElement("button");bub.type="button";bub.className="toca-fer";bub.innerHTML="¡Tócame! 🎺";
+      const host=don.offsetParent||don.parentElement;host.appendChild(bub);
+      const place=()=>{const r=don.getBoundingClientRect(),h=host.getBoundingClientRect();
+        let x=r.left-h.left+r.width*0.58;const maxX=Math.min(h.width,innerWidth-h.left)-bub.offsetWidth*0.9-10;if(x>maxX)x=Math.max(8,maxX);
+        bub.style.left=x+"px";bub.style.top=(r.top-h.top+r.height*0.14)+"px"};
+      place();addEventListener("resize",place);if(don.complete)place();else don.addEventListener("load",place);
+      setTimeout(place,1300);setTimeout(place,2600);
+      const go=e=>{e.stopPropagation();don.classList.remove("fer-salta");void don.offsetWidth;don.classList.add("fer-salta");
+        try{navigator.vibrate&&navigator.vibrate(15)}catch(_){}
+        if(!playing)play()};
+      don.addEventListener("click",go);bub.addEventListener("click",go);
+      don.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go(e)}});
+    });
 
     // primer toque en cualquier parte de la página
     const first=e=>{
